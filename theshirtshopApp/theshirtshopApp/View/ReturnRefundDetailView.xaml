@@ -1,0 +1,74 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="theshirtshopApp.View.ReturnRefundDetailView"
+             NavigationPage.HasNavigationBar="False" BackgroundColor="#f1ede4">
+    <ContentPage.Content>
+        <StackLayout Padding="10" BackgroundColor="Transparent">
+            <ListView x:Name="listViewnew" VerticalOptions="FillAndExpand" SelectionMode="None" ItemsSource="{Binding ReturnDetailsList.AsticaleList}" HasUnevenRows="true">
+                <ListView.Header>
+                    <StackLayout BackgroundColor ="White" Padding="5">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"></ColumnDefinition>
+                                <ColumnDefinition Width="*"></ColumnDefinition>
+                                <ColumnDefinition Width="*"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Label Text="Order Return Id" Grid.Row="0" FontSize="Small"  Grid.Column="0"></Label>
+                            <Label Text="{Binding ReturnDetailsList.OrderReturnId}" Grid.Row="0" FontSize="Small" FontAttributes="Bold" Grid.Column="1" Grid.ColumnSpan="2"></Label>
+                            <Label Text="Order Date" Grid.Row="1"  FontSize="Small" Grid.Column="0"></Label>
+                            <Label Text="{Binding ReturnDetailsList.CreatedDate}" Grid.Row="1"  FontSize="Small" FontAttributes="Bold" Grid.Column="1" Grid.ColumnSpan="2"></Label>
+                            <Label Text="Amount" Grid.Row="2"  FontSize="Small" Grid.Column="0"></Label>
+                            <Label Text="{Binding ReturnDetailsList.AmountInRupees}" Grid.Row="2"  FontSize="Small" FontAttributes="Bold" Grid.Column="1" Grid.ColumnSpan="2"></Label>
+                            <Label Text="Quantity Sold" Grid.Row="4"  FontSize="Small" Grid.Column="0"></Label>
+                            <Label Text="{Binding ReturnDetailsList.TotalQty}" Grid.Row="4"  FontSize="Small" FontAttributes="Bold" Grid.Column="1" Grid.ColumnSpan="2"></Label>
+                            <Label Text="Customer" Grid.Row="3"  FontSize="Small" Grid.Column="0"></Label>
+                            <Label Text="{Binding ReturnDetailsList.CustomerNameContact}" Grid.Row="3"  FontSize="Small" FontAttributes="Bold" Grid.Column="1" Grid.ColumnSpan="2"></Label>
+                            <StackLayout Grid.Row="4" Grid.Column="2" Padding="1" BackgroundColor="Transparent">
+                                <StackLayout Padding="1" BackgroundColor="Gray" HorizontalOptions="Fill" VerticalOptions="FillAndExpand">
+                                    <Label Text="{Binding ReturnDetailsList.ReturnStatus}" TextColor="White"  BackgroundColor="#07549c" HorizontalOptions="Fill" VerticalOptions="FillAndExpand" FontSize="Small" VerticalTextAlignment="Center" HorizontalTextAlignment="Center"></Label>
+                                </StackLayout>
+                            </StackLayout>
+                            <Label Text="Invoice No." Grid.Row="5"  FontSize="Small" Grid.Column="0"></Label>
+                            <Label Text="{Binding ReturnDetailsList.invoiceno}" Grid.Row="5"  FontSize="Small" FontAttributes="Bold" Grid.Column="1" Grid.ColumnSpan="2"></Label>
+                        </Grid>
+                    </StackLayout>
+                </ListView.Header>
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" BackgroundColor="{Binding backgroundColor}" Padding="10">
+
+                                <Grid x:Name="Item" >
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="*"></RowDefinition>
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+
+                                    </Grid.ColumnDefinitions>
+                                    <Label Text="Category" Grid.Row="0" FontSize="Small"  Grid.Column="0"></Label>
+                                    <Label Text="{Binding CategoryName}" Grid.Row="0" FontSize="Small" FontAttributes="Bold" Grid.Column="1" Grid.ColumnSpan="2"></Label>
+                                    <Label Text="Sub Category" Grid.Row="1"  FontSize="Small" Grid.Column="0"></Label>
+                                    <Label Text="{Binding SubCategoryName}" Grid.Row="1"  FontSize="Small" FontAttributes="Bold" Grid.Column="1" Grid.ColumnSpan="2"></Label>
+                                    <Label Text="Article No" Grid.Row="2"  FontSize="Small" Grid.Column="0"></Label>
+                                    <Label Text="{Binding ArticleNo}" Grid.Row="2"  FontSize="Small" FontAttributes="Bold" Grid.Column="1" Grid.ColumnSpan="2"></Label>
+                                    <Label Text="MRP" Grid.Row="3"  FontSize="Small" Grid.Column="0"></Label>
+
+                                    <Label Text="{Binding QtyAmountInRupees}" Grid.Row="3"  FontSize="Small" FontAttributes="Bold" Grid.Column="1" Grid.ColumnSpan="2"></Label>
+                                    <Label Text="Damaged Quantity" Grid.Row="4"  FontSize="Small" Grid.Column="0"></Label>
+                                    <Label Text="{Binding DamagedQty}" Grid.Row="4"  FontSize="Small" FontAttributes="Bold" Grid.Column="1" Grid.ColumnSpan="2"></Label>
+                                    <Label Text="Marketable Quantiry" Grid.Row="5"  FontSize="Small" Grid.Column="0"></Label>
+                                    <Label Text="{Binding MarketableQty}" Grid.Row="5"  FontSize="Small" FontAttributes="Bold" Grid.Column="1" Grid.ColumnSpan="2"></Label>
+
+                                </Grid>
+                            </StackLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

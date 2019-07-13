@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="theshirtshopApp.View.CashCollectionPage"
+                   xmlns:local="clr-namespace:theshirtshopApp.Validation"
+                xmlns:viewModel="clr-namespace:theshirtshopApp.ViewModel"
+             BackgroundImage="Screen.png"
+              NavigationPage.HasNavigationBar="False"
+             Title="Cash Collection"
+             >
+    <!--<ContentPage.BindingContext>
+        <viewModel:CashCollectionPageViewModel></viewModel:CashCollectionPageViewModel>
+    </ContentPage.BindingContext>-->
+    <ContentPage.Content>
+            <ScrollView VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+                <StackLayout Padding="10" Margin="20"
+                     Spacing="30" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+                    <StackLayout  Orientation="Vertical" >
+                        <Label FontSize="Medium" Text="Mobile No."  VerticalOptions="StartAndExpand" />
+                    <local:MpEntry Text="{Binding _Retailer_Contect_No}" Keyboard="Numeric"  ShowErrorMessage="True"  FontSize="Medium" x:Name="RetailerContectNo"  BackgroundColor="White"   TextColor="Black"  IsEnabled="{Binding _Retailer_Contect_No_Enabled}"  />
+                        <Label  BindingContext="{x:Reference RetailerContectNo}"  IsVisible="{Binding HasError}" Text="{Binding ErrorMessage}" TextColor="Red" />
+
+                    <Button  Text="{Binding _Button_Text}"  Command="{Binding GetContectCommand}" HorizontalOptions="StartAndExpand" BackgroundColor="#ba6222"  TextColor="White" VerticalOptions="CenterAndExpand" ></Button>
+
+                        <StackLayout  Orientation="Vertical" IsVisible="{Binding _After_Check_Contect}" >
+
+                            <Label FontSize="Medium" Text="Collected Cash Amount"  VerticalOptions="StartAndExpand" />
+                        <local:MpEntry Text="{Binding _Retailer_Collected_Cash_Amount}"  Keyboard="Numeric"   ShowErrorMessage="True"  FontSize="Medium" x:Name="RetailerCollectedCashAmount"  BackgroundColor="White"  TextColor="Black"   />
+                            <Label  BindingContext="{x:Reference RetailerCollectedCashAmount}"  IsVisible="{Binding HasError}" Text="{Binding ErrorMessage}" TextColor="Red" />
+
+                        <Button  Text="Send OTP"  Command="{Binding SendOTPCommand}" HorizontalOptions="StartAndExpand" IsVisible="{Binding _Button_Send_OTP_Visible}"  VerticalOptions="CenterAndExpand" BackgroundColor="#ba6222" TextColor="White" ></Button>
+
+                            <StackLayout  Orientation="Vertical" IsVisible="{Binding _After_Send_OTP_Command}" >
+
+                                <Label FontSize="Small" Text="A OTP has been send to your register Mobile No."   VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand"/>
+                            <local:MpEntry Text="{Binding _OTP}"   ShowErrorMessage="True"  FontSize="Medium" x:Name="OTP"  BackgroundColor="White"  Keyboard="Numeric"  TextColor="Black"    />
+                                <Label  BindingContext="{x:Reference OTP}"  IsVisible="{Binding HasError}" Text="{Binding ErrorMessage}" TextColor="Red" />
+                                <!--<Label FontSize="Medium" Text="{Binding _Resived_OTP}"   VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand"/>-->
+                            <Button  Text="Resend OTP"  Command="{Binding SendOTPCommand}" HorizontalOptions="CenterAndExpand" BackgroundColor="Transparent"   VerticalOptions="CenterAndExpand"   TextColor="Blue" ></Button>
+
+                            <Button  Text="Save"  Command="{Binding SaveCommand}" HorizontalOptions="CenterAndExpand" BackgroundColor="#ba6222"  TextColor="White" VerticalOptions="CenterAndExpand" ></Button>
+
+                            </StackLayout>
+                        </StackLayout>
+                    </StackLayout>
+                </StackLayout>
+            </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

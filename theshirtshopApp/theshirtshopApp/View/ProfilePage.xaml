@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="theshirtshopApp.View.ProfilePage"
+          xmlns:controls="clr-namespace:ImageCircle.Forms.Plugin.Abstractions;assembly=ImageCircle.Forms.Plugin"  
+            xmlns:viewModel="clr-namespace:theshirtshopApp.ViewModel"
+             BackgroundImage="Screen.png"
+              NavigationPage.HasNavigationBar="False"
+           
+            Title="Profile"
+             >
+    <!--<ContentPage.BindingContext>
+        <viewModel:ProfileViewModel></viewModel:ProfileViewModel>
+    </ContentPage.BindingContext>-->
+    <ContentPage.Content>
+        <ScrollView VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+            <StackLayout Spacing="30" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+                <StackLayout HeightRequest="250"    BackgroundColor="#ba6222" >
+                    <controls:CircleImage x:Name="photo" Source="{Binding _Photo}" Margin="10"  Aspect="Fill"
+  BorderThickness="3" WidthRequest="150" HeightRequest="150"   HorizontalOptions="Center"   />
+                    <Label FontSize="Medium" Text="{Binding _Name}" TextColor="#feac41" Font="Bold,20" HorizontalOptions="Center"/>
+                    <Label FontSize="Medium" Text="{Binding _Code}" TextColor="White" Font="Bold,15" HorizontalOptions="Center"/>
+                </StackLayout>
+                <StackLayout Margin="15"  BackgroundColor="White"     Spacing="15">
+                    <StackLayout Orientation="Horizontal" Padding="10,10,10,10" Spacing="10">
+                        <Image Source="mobile.png" WidthRequest="25" HeightRequest="25" ></Image>
+                        <Label FontSize="20" Text="{Binding _ContectNo}" TextColor="Black"  />
+                    </StackLayout>
+                    <StackLayout Orientation="Horizontal" Padding="10,10,10,10" Spacing="10">
+                        <Image Source="sms.png" WidthRequest="25" HeightRequest="25" ></Image>
+                        <Label FontSize="20" Text="{Binding _MailId}" TextColor="Black"  />
+                    </StackLayout>
+                    <StackLayout Orientation="Horizontal" Padding="10,10,10,10" Spacing="10">
+                        <Image Source="location.png" WidthRequest="25" HeightRequest="25" ></Image>
+                        <Label FontSize="20" Text="{Binding _Address}" TextColor="Black"  />
+                    </StackLayout>
+
+                </StackLayout>
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>
+
+
+

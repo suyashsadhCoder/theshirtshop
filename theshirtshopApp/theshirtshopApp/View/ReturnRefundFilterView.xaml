@@ -1,0 +1,102 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="theshirtshopApp.View.ReturnRefundFilterView"
+             Title="Filters"
+             xmlns:controls="clr-namespace:theshirtshopApp.Controls;assembly=theshirtshopApp"
+              xmlns:sys="clr-namespace:System;assembly=mscorlib">
+    <ContentPage.Content>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Image Source="Screen.png"></Image>
+            <StackLayout Padding="10" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+                <StackLayout BackgroundColor="Fuchsia" VerticalOptions="Start" HorizontalOptions="FillAndExpand" Orientation="Horizontal"  Spacing="0">
+                    <ListView  x:Name="lstView" RowHeight="50" HorizontalOptions="Start" BackgroundColor="Silver" ItemsSource="{Binding FilterOptions}" SelectionMode="Single" SelectedItem="{Binding selectedFilterModel}" WidthRequest="150">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <controls:CustomViewCell SelectedItemBackgroundColor="White">
+                                    <ViewCell.View>
+                                        <StackLayout Orientation="Horizontal" Padding="10" >
+                                            <Label Text="{Binding .}" VerticalOptions="CenterAndExpand" FontSize="Small"   HorizontalOptions="StartAndExpand" />
+                                        </StackLayout>
+                                    </ViewCell.View>
+                                </controls:CustomViewCell>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                        <ListView.Footer>
+                            <Label HeightRequest="0"></Label>
+                        </ListView.Footer>
+                    </ListView>
+                    <StackLayout  Padding="5" BackgroundColor="White"  HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" >
+                        <controls:ImageEntry   Image="search"   PlaceholderColor="Black" Text="{Binding filterModel.ArticleNo, Mode=TwoWay}" Placeholder="Please Enter Article No." />
+                        <controls:ImageEntry  Image="search"  Keyboard="Numeric" PlaceholderColor="Black" Text="{Binding filterModel.Amount, Mode=TwoWay}" Placeholder="Please Enter Amount" ></controls:ImageEntry>
+                      <Picker x:Name="timeTypePicker" Title="Select Time" ItemsSource="{Binding TimeOptions}" ></Picker>
+                        <Picker x:Name="orderTypePicker" Title="Select Order Type"  ItemsSource="{Binding OrderTypes}"></Picker>
+                        <!--<StackLayout IsVisible="{Binding isFilterThreeSelected}" AbsoluteLayout.LayoutBounds="0,0,1,1" Spacing="0.5" AbsoluteLayout.LayoutFlags="WidthProportional,HeightProportional">
+                            <ListView  x:Name="timelstView" RowHeight="50" HorizontalOptions="Start" BackgroundColor="Silver" ItemsSource="{Binding TimeOptions}" SelectionMode="Single"  >
+                                <ListView.ItemTemplate>
+                                    <DataTemplate>
+                                        <controls:CustomViewCell SelectedItemBackgroundColor="White">
+                                            <ViewCell.View>
+                                                <StackLayout Orientation="Horizontal" Padding="10" >
+                                                    <Label Text="{Binding .}" VerticalOptions="CenterAndExpand" FontSize="Small"  HorizontalOptions="StartAndExpand" />
+                                                </StackLayout>
+                                            </ViewCell.View>
+                                        </controls:CustomViewCell>
+                                    </DataTemplate>
+                                </ListView.ItemTemplate>
+                                <ListView.Footer>
+                                    <Label HeightRequest="0"></Label>
+                                </ListView.Footer>
+                            </ListView>
+                            
+                            </StackLayout>
+                        <StackLayout IsVisible="{Binding isFilterFourSelected}" AbsoluteLayout.LayoutBounds="0,0,1,1" Spacing="0.5" AbsoluteLayout.LayoutFlags="WidthProportional,HeightProportional">
+                            <ListView  x:Name="orderlstView" RowHeight="50" HorizontalOptions="Start" BackgroundColor="Silver" ItemsSource="{Binding OrderTypes}" SelectionMode="Single"  >
+                                <ListView.ItemTemplate>
+                                    <DataTemplate>
+                                        <controls:CustomViewCell SelectedItemBackgroundColor="White">
+                                            <ViewCell.View>
+                                                <StackLayout Orientation="Horizontal" Padding="10" >
+                                                    <Label Text="{Binding .}" VerticalOptions="CenterAndExpand" FontSize="Small"   HorizontalOptions="StartAndExpand" />
+                                                </StackLayout>
+                                            </ViewCell.View>
+                                        </controls:CustomViewCell>
+                                    </DataTemplate>
+                                </ListView.ItemTemplate>
+                                <ListView.Footer>
+                                    <Label HeightRequest="0"></Label>
+                                </ListView.Footer>
+                            </ListView>
+                        </StackLayout>-->
+                        <StackLayout IsVisible="{Binding isCustomDate}"  HorizontalOptions="FillAndExpand" Padding="10"   Orientation="Horizontal">
+                            <StackLayout Orientation="Vertical" HorizontalOptions="FillAndExpand">
+                                <Label Text="From Date" FontSize="Small"></Label>
+                                <StackLayout BackgroundColor="Orange" Padding="1" HorizontalOptions="FillAndExpand">
+                                    <DatePicker Format="dd/MM/yyyy" MinimumDate="{Binding MinFromDate}" DateSelected="Handle_FromDateSelected" Date="{Binding FromDate, Mode=TwoWay}" MaximumDate="{Binding ToDate}" VerticalOptions="FillAndExpand" TextColor="Black"  BackgroundColor="White">
+                                    </DatePicker>
+                                </StackLayout>
+                            </StackLayout>
+                            <Image  Source="calender" HorizontalOptions="End" VerticalOptions="Center" ></Image>
+                        </StackLayout>
+                        <StackLayout IsVisible="{Binding isCustomDate}" HorizontalOptions="FillAndExpand" Padding="10" Orientation="Horizontal">
+                            <StackLayout Orientation="Vertical" HorizontalOptions="FillAndExpand">
+                                <Label Text="To Date" FontSize="Small"></Label>
+                                <StackLayout BackgroundColor="Orange" Padding="1" HorizontalOptions="FillAndExpand">
+                                    <DatePicker Format="dd/MM/yyyy" MaximumDate="{x:Static sys:DateTime.Now}" Date="{Binding ToDate, Mode=TwoWay}" DateSelected="Handle_ToDateSelected"  MinimumDate="{Binding MinToDate}" VerticalOptions="FillAndExpand" TextColor="Black" BackgroundColor="White"></DatePicker>
+                                </StackLayout>
+                            </StackLayout>
+                            <Image  Source="calender" HorizontalOptions="End" VerticalOptions="Center" ></Image>
+                        </StackLayout>
+                    </StackLayout>
+                </StackLayout>
+                <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+                    <Button Text="Reset Filter" TextColor="White" Clicked="Button_resetClicked"  VerticalOptions="Center" HorizontalOptions="CenterAndExpand" BackgroundColor="Orange" Padding="20,10" ></Button>
+                    <Button Text="     Apply      " VerticalOptions="Center" Clicked="Button_Clicked" TextColor="White" HorizontalOptions="CenterAndExpand" BackgroundColor="Orange" Padding="20,10" ></Button>
+                </StackLayout>
+            </StackLayout>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

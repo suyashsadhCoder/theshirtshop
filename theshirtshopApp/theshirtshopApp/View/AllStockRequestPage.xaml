@@ -1,0 +1,101 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="theshirtshopApp.View.AllStockRequestPage"
+             BackgroundImage="Screen.png"
+             xmlns:converter="clr-namespace:theshirtshopApp.ValueConverter"
+             Title="All Stock Request"
+             NavigationPage.HasNavigationBar="False"
+             >
+
+    <ContentPage.Resources>
+        <ResourceDictionary x:Name="AppDictionary">
+            <Color x:Key="BackgroundColor">#FFFFFF</Color>
+            <Color x:Key="BorderColor">#575757</Color>
+            <Style x:Key="InternalViewStyle" TargetType="StackLayout">
+                <Setter Property = "BackgroundColor"
+            Value="{StaticResource BackgroundColor}"/>
+                <Setter Property="VerticalOptions" Value="Fill"/>
+                <Setter Property="Padding" Value="10,10,10,10"></Setter>
+            </Style>
+            <Style x:Key="BorderStyle" TargetType="StackLayout">
+                <Setter Property="BackgroundColor" Value="{StaticResource BorderColor}"/>
+                <Setter Property="Padding" Value="10,0,0,0"></Setter>
+            </Style>
+            <converter:ChangeColorAccourdingStatus x:Key="ColorAccourding" />
+        </ResourceDictionary>
+        
+    </ContentPage.Resources>
+    
+    
+    <ContentView.Content>
+
+        <!--<StackLayout>
+            <Label FontSize="Large" TextColor="Red" Text="Upcoming stock request not found" IsVisible="{Binding _Show_Hide_Msg}"></Label>-->
+            <Grid Margin="10"  IsVisible="{Binding _Request_List}" >
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <SearchBar x:Name="RequestSearchBar" Grid.Row="0" Grid.Column="0" Placeholder="Search" TextChanged="RequestSearchBar_TextChanged" SearchButtonPressed="RequestSearchBar_SearchButtonPressed"></SearchBar>
+            <Label x:Name="MsgResult" Grid.Row="1" Grid.Column="0" Text="No Result Found." TextColor="Red"
+                        HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" FontSize="Medium" ></Label>
+            <ListView x:Name="FranchiseRequestClassList" Grid.Row="2" Grid.Column="0" ItemsSource="{Binding _FranchiseRequest_Class_List}"    ItemTapped="FranchiseRequestClassList_ItemTapped" IsPullToRefreshEnabled="True" Refreshing="FranchiseRequestClassList_Refreshing"  HasUnevenRows="True" >
+                <!--<ListView.Header>
+                    <
+                </ListView.Header>-->
+                <ListView.ItemTemplate>
+
+                    <DataTemplate>
+
+                        <ViewCell>
+                            <StackLayout Orientation="Vertical" Margin="0,0,0,15" >
+                            <StackLayout  Style="{StaticResource BorderStyle}">
+                                <StackLayout   Style="{StaticResource InternalViewStyle}" >
+                                    <StackLayout Style="{StaticResource BorderStyle}"  Orientation="Vertical" BackgroundColor="White" >
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*"></ColumnDefinition>
+                                                <ColumnDefinition Width="*"></ColumnDefinition>
+                                            </Grid.ColumnDefinitions>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="*"></RowDefinition>
+                                                <RowDefinition Height="*"></RowDefinition>
+
+                                            </Grid.RowDefinitions>
+
+
+
+
+                                            <Label  FontSize="Small"  Text="{Binding Title,StringFormat='Title : {0}'}" Grid.Column="0" Grid.Row="0" />
+
+                                            <Label  FontSize="Small" Text="{Binding Description,StringFormat='Description :  {0}'}"  LineBreakMode="TailTruncation"  WidthRequest="20" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2"/>
+
+
+
+
+                                            <Label  FontSize="Small" FontAttributes="Bold"  Grid.Column="1" Grid.Row="0"  Text="{Binding Requested_Date,StringFormat='Date : {0:dd-MM-yyyy}'}" />
+
+
+                                            
+                                        </Grid>
+                                    </StackLayout>
+                                </StackLayout>
+                            </StackLayout>
+                            <Label HorizontalOptions="EndAndExpand" VerticalOptions="EndAndExpand"  Text="{Binding  Action}" BackgroundColor="{Binding  Action,Converter={StaticResource ColorAccourding}}" TextColor="White" />
+                            </StackLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+
+            </ListView>
+           
+        </Grid>
+        
+    </ContentView.Content>
+</ContentPage>

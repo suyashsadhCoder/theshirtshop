@@ -1,0 +1,185 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:converters="clr-namespace:theshirtshopApp.ValueConverter"
+                xmlns:local="clr-namespace:theshirtshopApp.Validation"
+             xmlns:forms="clr-namespace:Xamarin.Forms;assembly=Xamarin.Forms.CarouselView"
+           xmlns:viewModel="clr-namespace:theshirtshopApp.ViewModel"
+             x:Class="theshirtshopApp.View.RetailerRegistrationPage"
+             BackgroundImage="Screen.png"
+              NavigationPage.HasNavigationBar="False"
+            
+             Title="Retailer Registration"
+             >
+
+    <!--<ContentPage.BindingContext>
+        <viewModel:RetailerRegistrationViewModel></viewModel:RetailerRegistrationViewModel>
+        
+    </ContentPage.BindingContext>-->
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:NativeInMemoryImageValueConverter x:Key="ByteArrayToImage" />
+         
+        </ResourceDictionary>
+       
+    </ContentPage.Resources>
+    <ContentPage.Content>
+
+        <ScrollView VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+            <StackLayout Padding="10" Margin="20" Spacing="30" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+                <StackLayout  Orientation="Vertical" >
+                    <Label FontSize="Medium" Text="Retailer Name"  VerticalOptions="Start" />
+                    <local:MpEntry Text="{Binding _Retailer_Name}" Completed="RetailerName_Completed"   ShowErrorMessage="True"  FontSize="Medium"  x:Name="RetailerName"  BackgroundColor="White"  TextColor="Black" Keyboard="Text"   />
+                    <Label  BindingContext="{x:Reference RetailerName}"  IsVisible="{Binding HasError}" Text="{Binding ErrorMessage}" TextColor="Red" />
+                </StackLayout>
+                <StackLayout Orientation="Vertical" >
+                    <Label FontSize="Medium" Text="Email Id"  VerticalOptions="Start" />
+                    <local:MpEntry Text="{Binding _Email_Id}"  Completed="EmailId_Completed"  ShowErrorMessage="True"  FontSize="Medium"  x:Name="EmailId"  BackgroundColor="White" Keyboard="Email"  TextColor="Black"   />
+                    <Label  BindingContext="{x:Reference EmailId}"  IsVisible="{Binding HasError}" Text="{Binding ErrorMessage}" TextColor="Red" />
+                </StackLayout>
+                <StackLayout Orientation="Vertical" >
+                    <Label FontSize="Medium" Text="Primary Mobile No."  VerticalOptions="Start" />
+                    <local:MpEntry Text="{Binding _Primary_Mobile_No}"    ShowErrorMessage="True"  FontSize="Medium" x:Name="PrimaryMobileNo" Completed="PrimaryMobileNo_Completed" Keyboard="Numeric"  BackgroundColor="White"  TextColor="Black"   />
+                    <Label  BindingContext="{x:Reference PrimaryMobileNo}"  IsVisible="{Binding HasError}" Text="{Binding ErrorMessage}" TextColor="Red" />
+                </StackLayout>
+                <StackLayout Orientation="Vertical">
+                    <Label FontSize="Medium" Text="GST No. Or Aadhar No."  VerticalOptions="Start" />
+                    <local:MpEntry Text="{Binding _GSTN_Adhar_No}"  Completed="GSTNAdharNo_Completed"   ShowErrorMessage="True"  FontSize="Medium" x:Name="GSTNAdharNo"  BackgroundColor="White"  TextColor="Black"    />
+                    <Label  BindingContext="{x:Reference GSTNAdharNo}"  IsVisible="{Binding HasError}" Text="{Binding ErrorMessage}" TextColor="Red" />
+                </StackLayout>
+                <StackLayout Orientation="Vertical">
+                    <Label FontSize="Medium" Text="State" />
+                    <local:MpPicker x:Name="StateMasterList" ItemsSource="{Binding _State_Master_List}" DisplayMemberPath="State_Name" SelectedIndex="{Binding StateIndex}" SelectedValuePath="State_ID" SelectedValue="{Binding _Retailer_State_Id, Mode=TwoWay}" />
+                    <Label  BindingContext="{x:Reference StateMasterList}"  IsVisible="{Binding HasError}" Text="{Binding ErrorMessage}" TextColor="Red" />
+                </StackLayout>
+                <StackLayout Orientation="Vertical">
+                    <Label FontSize="Medium" Text="City" />
+                    <local:MpPicker x:Name="CityMasterList" ItemsSource="{Binding _City_Master_List}" DisplayMemberPath="City_Name" SelectedValuePath="City_ID" SelectedValue="{Binding _Retailer_City_Id, Mode=TwoWay}" SelectedIndexChanged="CityMasterList_SelectedIndexChanged" />
+                    <Label  BindingContext="{x:Reference CityMasterList}"  IsVisible="{Binding HasError}" Text="{Binding ErrorMessage}" TextColor="Red" />
+                </StackLayout>
+                <StackLayout Orientation="Vertical">
+                    <Label FontSize="Medium" Text="Address" VerticalOptions="StartAndExpand" />
+                    <local:MpEditor Text="{Binding _Address}" HeightRequest="150"  ShowErrorMessage="True" FontSize="Medium" x:Name="Address" BackgroundColor="White" TextColor="Black"  Keyboard="Text"   />
+                    <Label  BindingContext="{x:Reference Address}"  IsVisible="{Binding HasError}" Text="{Binding ErrorMessage}" TextColor="Red" />
+                </StackLayout>
+                <StackLayout Orientation="Vertical">
+                    <StackLayout Orientation="Horizontal" VerticalOptions="StartAndExpand">
+                        <Label FontSize="Medium" Text="Secondary Contact No."  HorizontalOptions="Start" />
+                        <Button BackgroundColor="Transparent" Image="add.png"  Command="{Binding AddMoreContectCommand}"    HorizontalOptions="EndAndExpand" ></Button>
+                    </StackLayout>
+                    <StackLayout Orientation="Vertical" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" HeightRequest="250">
+                    <ListView x:Name="lstNotification"  ItemsSource="{Binding _Secondary_Mobile_No}" HasUnevenRows="True" VerticalOptions="EndAndExpand" HorizontalOptions="FillAndExpand"  RowHeight="10" >
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <ViewCell>
+                                    <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+                                        <local:MpEntry Text="{Binding Contect_No}"    FontSize="Medium"  BackgroundColor="White"  TextColor="Black" Keyboard="Numeric"   HorizontalOptions="FillAndExpand"  VerticalOptions="StartAndExpand" />
+                                        <Button  BackgroundColor="Transparent" Image="delete.png"   Clicked="Button_Clicked"     HorizontalOptions="EndAndExpand" VerticalOptions="EndAndExpand" ></Button>
+                                    </StackLayout>
+
+                                </ViewCell>
+
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+
+                    </ListView>
+                    </StackLayout>
+                </StackLayout>
+                <StackLayout Orientation="Vertical">
+                    <Label FontSize="Medium" Text="Select Single Image"  VerticalOptions="Start" />
+                    <StackLayout Orientation="Horizontal">
+                        <Button  BackgroundColor="Transparent" Image="camera.png"  Command="{Binding GetRetailerSinglePicCommand}" HorizontalOptions="StartAndExpand"  VerticalOptions="CenterAndExpand" ></Button>
+                        <Button  BackgroundColor="Transparent" Image="gallery.png" Command="{Binding SelectRetailerSinglePicCommand}"    HorizontalOptions="EndAndExpand" VerticalOptions="StartAndExpand"></Button>
+                    </StackLayout>
+                    <Image x:Name="RetailerImage" Source="{Binding _Retailer_Image , Converter={StaticResource ByteArrayToImage}}"   HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"  />
+                    <Label  BindingContext="{x:Reference RetailerImage}"  IsVisible="{Binding HasError}" Text="{Binding ErrorMessage}" TextColor="Red" />
+                </StackLayout>
+                <StackLayout Orientation="Vertical">
+                    <StackLayout Orientation="Vertical">
+                        <Label FontSize="Medium" Text="Select Aadhar Image"  VerticalOptions="Start" />
+                        <StackLayout Orientation="Horizontal">
+                            <Button BackgroundColor="Transparent"  Image="camera.png"  Command="{Binding GetRetailerAdharPicCommand}" HorizontalOptions="StartAndExpand" VerticalOptions="CenterAndExpand" ></Button>
+                            <Button  BackgroundColor="Transparent" Image="gallery.png"   Command="{Binding SelectRetailerAharPicCommand}"  HorizontalOptions="EndAndExpand" VerticalOptions="CenterAndExpand"></Button>
+
+                        </StackLayout>
+
+
+
+                        <Image x:Name="GSTNAdharNoImage" Source="{Binding _GSTN_Adhar_No_Image , Converter={StaticResource ByteArrayToImage}}"   HorizontalOptions="CenterAndExpand" VerticalOptions="EndAndExpand"   />
+
+
+                    </StackLayout>
+
+
+
+                </StackLayout>
+                <StackLayout Orientation="Vertical">
+                    <Label FontSize="Medium"  VerticalOptions="Start" Text="Select Multiple Image"   />
+                    <StackLayout Orientation="Horizontal">
+                        <Button BackgroundColor="Transparent"  Image="camera.png"   Command="{Binding GetRetailerMultiplePicCommand}" HorizontalOptions="StartAndExpand" VerticalOptions="CenterAndExpand"      ></Button>
+                        <Button BackgroundColor="Transparent" Image="gallery.png"  Command="{Binding SelectRetailerMultiplePicCommand}" HorizontalOptions="EndAndExpand"  VerticalOptions="CenterAndExpand"   ></Button>
+
+                    </StackLayout>
+
+
+                    <forms:CarouselView x:Name="RetailerSecondarImage"  ItemsSource="{Binding _Retailer_Secondar_Image}"   HeightRequest="250"   >
+
+                            <forms:CarouselView.ItemTemplate>
+                                <DataTemplate>
+
+
+                                    <StackLayout Orientation="Vertical" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand"  >
+                                        <Button BackgroundColor="Transparent" Image="delete.png"   Clicked="RemoveSecondaryImage"  VerticalOptions="StartAndExpand" HorizontalOptions="CenterAndExpand"    ></Button>
+                                        <Image   Source="{Binding Image, Converter={StaticResource ByteArrayToImage}}" VerticalOptions="EndAndExpand" HorizontalOptions="CenterAndExpand"  WidthRequest="250" HeightRequest="250"
+                                                 />
+
+
+                                    </StackLayout>
+
+
+
+                                </DataTemplate>
+                            </forms:CarouselView.ItemTemplate>
+                        </forms:CarouselView>
+                    
+             
+                </StackLayout>
+                <StackLayout Orientation="Vertical">
+                    <Label FontSize="Medium" Text="Upload Form"  VerticalOptions="Start" />
+                    <StackLayout Orientation="Horizontal">
+                        <Button   BackgroundColor="Transparent" Image="camera.png"  Command="{Binding GetRetailerFormPicCommand}"  VerticalOptions="CenterAndExpand" HorizontalOptions="StartAndExpand" ></Button>
+
+                        <Button BackgroundColor="Transparent" Image="gallery.png"   Command="{Binding SelectRetailerMultipleFormPicCommand}"   HorizontalOptions="EndAndExpand" VerticalOptions="CenterAndExpand"></Button>
+
+                    </StackLayout>
+
+                    <forms:CarouselView x:Name="FormImage" HeightRequest="250" ItemsSource="{Binding _Form_Image}" >
+
+                        <forms:CarouselView.ItemTemplate>
+                            <DataTemplate>
+                                <StackLayout Orientation="Vertical" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" >
+                                    <Button BackgroundColor="Transparent"  Image="delete.png"   Clicked="RemoveFormImage"     HorizontalOptions="CenterAndExpand"  VerticalOptions="StartAndExpand" ></Button>
+                                    <Image Source="{Binding Image , Converter={StaticResource ByteArrayToImage}}"  HorizontalOptions="CenterAndExpand" VerticalOptions="FillAndExpand" WidthRequest="250" HeightRequest="250"  />
+                                </StackLayout>
+                            </DataTemplate>
+                        </forms:CarouselView.ItemTemplate>
+                    </forms:CarouselView>
+
+
+
+                  
+                </StackLayout>
+                <StackLayout>
+                    <StackLayout Orientation="Vertical">
+                        <Button Text="Save" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"  Command="{Binding SaveCommand}"   BackgroundColor="#ba6222"  TextColor="White" ></Button>
+                    </StackLayout>
+                </StackLayout>
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>
+
+
+
+
+   

@@ -1,0 +1,105 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="theshirtshopApp.View.StockDetailPage"
+             BackgroundImage="Screen.png"
+             Title="Stock Detail"
+             NavigationPage.HasNavigationBar="False"
+             >
+
+    <ContentPage.Resources>
+        <ResourceDictionary x:Name="AppDictionary">
+            <Color x:Key="BackgroundColor">#FFFFFF</Color>
+            <Color x:Key="BorderColor">#575757</Color>
+            <Style x:Key="InternalViewStyle" TargetType="StackLayout">
+                <Setter Property = "BackgroundColor"
+            Value="{StaticResource BackgroundColor}"/>
+                <Setter Property="VerticalOptions" Value="Fill"/>
+                <Setter Property="Padding" Value="10,10,10,10"></Setter>
+            </Style>
+            <Style x:Key="BorderStyle" TargetType="StackLayout">
+                <Setter Property="BackgroundColor" Value="{StaticResource BorderColor}"/>
+                <Setter Property="Padding" Value="10,0,0,0"></Setter>
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <!--<StackLayout>
+        <Label FontSize="Large" TextColor="Red" Text="Stock Not Available" IsVisible="{Binding _Show_Hide_Msg}"></Label>-->
+        <StackLayout>
+        <Grid Margin="10"  IsVisible="{Binding Main_List_Visible}" >
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <SearchBar x:Name="StockSearchBar" Placeholder="Search" TextChanged="SearchBar_TextChanged" SearchButtonPressed="SearchBar_SearchButtonPressed" VerticalOptions="StartAndExpand" HorizontalOptions="StartAndExpand" Grid.Column="0" Grid.Row="0"></SearchBar>
+            <Label x:Name="MsgResul" Text="No Result Found." TextColor="Red" FontSize="Medium" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand"  Grid.Column="0" Grid.Row="1"></Label>
+            <ListView x:Name="Mainlist"  ItemsSource="{Binding Main_List}"  Refreshing="ListView_Refreshing"  IsPullToRefreshEnabled="True" ItemTapped="ListView_ItemTapped" HasUnevenRows="True"  Grid.Column="0" Grid.Row="2"  >
+                <!--<ListView.Header>
+                        <StackLayout Orientation="Vertical" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" BackgroundColor="#d0a822">
+                          
+                        </StackLayout>
+                    </ListView.Header>-->
+
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <ViewCell.View>
+                                <StackLayout Margin="0,0,0,15" Style="{StaticResource BorderStyle}">
+                                    <StackLayout   Style="{StaticResource InternalViewStyle}" >
+
+                                        <StackLayout Style="{StaticResource BorderStyle}"  BackgroundColor="White" Orientation="Vertical">
+
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="50"></ColumnDefinition>
+                                                    <ColumnDefinition Width="50"></ColumnDefinition>
+                                                    <ColumnDefinition Width="*"></ColumnDefinition>
+
+                                                </Grid.ColumnDefinitions>
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="*"></RowDefinition>
+                                                    <RowDefinition Height="*"></RowDefinition>
+                                                    <RowDefinition Height="*"></RowDefinition>
+                                                    <RowDefinition Height="*"></RowDefinition>
+                                                    <RowDefinition Height="*"></RowDefinition>
+                                                </Grid.RowDefinitions>
+
+
+
+                                                <Image Grid.Column="0" Grid.RowSpan="4" Source="{Binding Article_PrimaryImage}"   ></Image>
+                                                <Image Source="{Binding Article_SecondaryImage}" Grid.Column="1" Grid.RowSpan="4"></Image>
+
+                                                <Label FontSize="Small"  Text="{Binding Article_No,StringFormat='Article No. : {0}'}" Grid.Column="2" Grid.Row="0" ></Label>
+                                                <Label FontSize="Small"  Text="{Binding CategoryMaster_Class_Data.Category_Name,StringFormat='Category : {0}'}" Grid.Column="2" Grid.Row="1" ></Label>
+
+                                                <Label FontSize="Small" Grid.Column="2" Grid.Row="2" Text="{Binding Selling_Price,StringFormat='Selling Price : {0}'}" ></Label>
+                                                <Label FontSize="Small" Grid.Column="2" Grid.Row="3" Text="{Binding MRP,StringFormat='MRP : {0}'}"></Label>
+
+                                                <Label FontSize="Small" Grid.ColumnSpan="3"  Grid.Row="4"  TextColor="#ba6222" Text="{Binding Description,StringFormat='Description : {0}'}" ></Label>
+                                            </Grid>
+                                        </StackLayout>
+
+
+                                    </StackLayout>
+                                </StackLayout>
+
+
+
+
+                            </ViewCell.View>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+
+            </ListView>
+        </Grid>
+        </StackLayout>
+
+    </ContentPage.Content>
+</ContentPage>

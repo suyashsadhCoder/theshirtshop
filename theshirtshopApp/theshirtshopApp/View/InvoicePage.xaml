@@ -1,0 +1,644 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<TabbedPage  xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="theshirtshopApp.View.InvoicePage"
+               xmlns:local="clr-namespace:theshirtshopApp.Validation"
+             BackgroundImage="Screen.png"
+             Title="Invoice"
+             NavigationPage.HasNavigationBar="False"
+             >
+    <TabbedPage.ToolbarItems>
+
+        <ToolbarItem x:Name="filter" Icon="filter.png"  Order="Primary"  Priority="0" Clicked="filter_Clicked">
+        </ToolbarItem>
+    </TabbedPage.ToolbarItems>
+    <ContentPage x:Name="OrderInvoice" Title="Order Invoice">
+        <ContentPage.Resources>
+            <ResourceDictionary >
+                <Color x:Key="BackgroundColor">#FFFFFF</Color>
+                <Color x:Key="BorderColor">#575757</Color>
+                <Style x:Key="InternalViewStyle" TargetType="StackLayout">
+                    <Setter Property="BackgroundColor" 
+            Value="{StaticResource BackgroundColor}"/>
+                    <Setter Property="VerticalOptions" Value="Fill"/>
+                    <Setter Property="Padding" Value="10,10,10,10"></Setter>
+                </Style>
+                <Style x:Key="BorderStyle" TargetType="StackLayout">
+                    <Setter Property="BackgroundColor" Value="{StaticResource BorderColor}"/>
+                    <Setter Property="Padding" Value="10,0,0,0"></Setter>
+                </Style>
+            </ResourceDictionary>
+        </ContentPage.Resources>
+        <ContentPage.Content>
+            <AbsoluteLayout Padding="0" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+
+                <StackLayout AbsoluteLayout.LayoutBounds="0, 0, 1, 1" AbsoluteLayout.LayoutFlags="All" Margin="10">
+                    <Grid x:Name="ShowOrderInvoice" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+
+
+                        <SearchBar x:Name="OrderSearchBar" Placeholder="Search" TextChanged="OrderSearchBar_TextChanged" SearchButtonPressed="OrderSearchBar_SearchButtonPressed" Grid.Row="0" Grid.Column="0"></SearchBar>
+                        <Label x:Name="MsgResul" Text="No Result Found." TextColor="Red" Grid.Row="1" 
+                     HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" FontSize="Medium"  Grid.Column="0" ></Label>
+
+
+                        <ListView x:Name="OrderMasterClassList"  Grid.Row="2" Grid.Column="0" ItemTapped="OrderMasterClassList_ItemTapped" IsPullToRefreshEnabled="True" Refreshing="OrderMasterClassList_Refreshing"  HasUnevenRows="True" >
+                            <ListView.Header>
+                                <StackLayout Orientation="Vertical">
+
+                                </StackLayout>
+
+                            </ListView.Header>
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+
+                                    <ViewCell>
+                                        <StackLayout Margin="0,0,0,15" Style="{StaticResource BorderStyle}">
+                                            <StackLayout   Style="{StaticResource InternalViewStyle}" >
+                                                <StackLayout Style="{StaticResource BorderStyle}"  Orientation="Vertical" BackgroundColor="White" >
+
+                                                    <Grid>
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition Width="*"></ColumnDefinition>
+                                                            <ColumnDefinition Width="*"></ColumnDefinition>
+
+                                                        </Grid.ColumnDefinitions>
+                                                        <Grid.RowDefinitions>
+                                                            <RowDefinition Height="Auto"></RowDefinition>
+                                                            <RowDefinition Height="Auto"></RowDefinition>
+                                                            <RowDefinition Height="Auto"></RowDefinition>
+                                                        </Grid.RowDefinitions>
+
+                                                        <Label HorizontalOptions="StartAndExpand"  FontSize="Medium"   Text="{Binding Created_Date,StringFormat='{0:dd-MM-yyyy}'}" Grid.Column="0" Grid.Row="0" />
+                                                        <Label HorizontalOptions="EndAndExpand"  FontSize="15" FontAttributes="Bold"  Text="{Binding Total_Amount,StringFormat='Total Amount : {0}'}" Grid.Column="1" Grid.Row="0"   />
+
+                                                        <Label  Grid.Column="0" Grid.Row="1"   FontSize="Medium"   Text="{Binding Invoice_No,StringFormat='Invoice No.{0}'}" />
+
+                                                        <Label Grid.Column="1" Grid.Row="1"   FontSize="15" FontAttributes="Bold"  Text="{Binding Total_Item,StringFormat='Total Items : {0}'}" />
+                                                    </Grid>
+                                                </StackLayout>
+                                            </StackLayout>
+                                        </StackLayout>
+                                    </ViewCell>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
+                    </Grid>
+                </StackLayout>
+
+                <ContentView x:Name="popupLoginView" BackgroundColor="#C0808080" Padding="10, 0" IsVisible="false" AbsoluteLayout.LayoutBounds="0, 0, 1, 1" AbsoluteLayout.LayoutFlags="All">
+                    <StackLayout VerticalOptions="Center" HorizontalOptions="Center">
+             
+                            <Grid BackgroundColor="White">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="3*"></ColumnDefinition>
+                                    <ColumnDefinition Width="7*"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"></RowDefinition>
+                                    <RowDefinition Height="Auto"></RowDefinition>
+                                    <RowDefinition Height="Auto"></RowDefinition>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <Image Source="cancel.png"   Grid.ColumnSpan="2" Grid.Row="0" HorizontalOptions="EndAndExpand" VerticalOptions="EndAndExpand"  >
+                                <Image.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"></TapGestureRecognizer>
+                                </Image.GestureRecognizers>
+                            </Image>
+                                <Label Text="Start Date : " Margin="5"  Grid.Column="0" Grid.Row="1" />
+                                <DatePicker x:Name="startDatePicker"
+                                    Grid.Column="1" Grid.Row="1"
+                    Format="D"
+                    Margin="30, 0, 0, 30"
+                    />
+
+                            <Label Text="End Date : " Margin="5"  Grid.Column="0" Grid.Row="2" />
+
+                                <DatePicker x:Name="endDatePicker"
+                    MinimumDate="{Binding Source={x:Reference startDatePicker},
+                                          Path=Date}"
+                    Format="D"
+                    Margin="30, 0, 0, 30"
+                     Grid.Column="1" Grid.Row="2"/>
+                            <StackLayout Orientation="Horizontal" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand"
+                                         Grid.ColumnSpan="2" Grid.Row="3" Margin="5">
+                                <Image Source="grayfilter.png"    HorizontalOptions="CenterAndExpand" BackgroundColor="#C0808080" VerticalOptions="CenterAndExpand" Margin="5" >
+                                    <Image.GestureRecognizers>
+                                        <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped_1"></TapGestureRecognizer>
+                                    </Image.GestureRecognizers>
+                                </Image>
+                                <Image  Source="download.png" HorizontalOptions="CenterAndExpand" BackgroundColor="#C0808080" VerticalOptions="CenterAndExpand" Margin="5" >
+                                    <Image.GestureRecognizers>
+                                        <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped_2"></TapGestureRecognizer>
+                                    </Image.GestureRecognizers>
+                                </Image>
+                            </StackLayout>
+                                
+                          
+
+                        </Grid>
+                          
+                    </StackLayout>
+                </ContentView>
+            </AbsoluteLayout>
+        </ContentPage.Content>
+    </ContentPage>
+    <ContentPage x:Name="CustomerInvoice" Title="Customer Invoice">
+        <ContentPage.Resources>
+            <ResourceDictionary >
+                <Color x:Key="BackgroundColor">#FFFFFF</Color>
+                <Color x:Key="BorderColor">#575757</Color>
+                <Style x:Key="InternalViewStyle" TargetType="StackLayout">
+                    <Setter Property="BackgroundColor" 
+            Value="{StaticResource BackgroundColor}"/>
+                    <Setter Property="VerticalOptions" Value="Fill"/>
+                    <Setter Property="Padding" Value="10,10,10,10"></Setter>
+                </Style>
+                <Style x:Key="BorderStyle" TargetType="StackLayout">
+                    <Setter Property="BackgroundColor" Value="{StaticResource BorderColor}"/>
+                    <Setter Property="Padding" Value="10,0,0,0"></Setter>
+                </Style>
+            </ResourceDictionary>
+        </ContentPage.Resources>
+        <ContentPage.Content>
+            <AbsoluteLayout Padding="0" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+
+                <StackLayout AbsoluteLayout.LayoutBounds="0, 0, 1, 1" AbsoluteLayout.LayoutFlags="All" Margin="10">
+                    <Grid x:Name="ShowCustomerInvoice" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                            <RowDefinition Height="Auto"></RowDefinition>
+
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <SearchBar x:Name="SellSearchBar" Placeholder="Search" TextChanged="SellSearchBar_TextChanged" SearchButtonPressed="SellSearchBar_SearchButtonPressed" Grid.Column="0" Grid.Row="0"></SearchBar>
+                        <Label x:Name="MsgResult" Text="No Result Found." TextColor="Red" Grid.Column="0" Grid.Row="1"
+                       HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" FontSize="Medium" ></Label>
+                        <ListView x:Name="FranchiseSellClassList"  ItemTapped="FranchiseSellClassList_ItemTapped" Refreshing="FranchiseSellClassList_Refreshing" IsPullToRefreshEnabled="True"  HasUnevenRows="True" Grid.Column="0" Grid.Row="2" >
+                            <ListView.Header>
+                                <StackLayout Orientation="Vertical" >
+
+                                </StackLayout>
+
+                            </ListView.Header>
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <ViewCell>
+                                        <StackLayout Margin="0,0,0,15" Style="{StaticResource BorderStyle}">
+                                            <StackLayout   Style="{StaticResource InternalViewStyle}" >
+                                                <StackLayout Style="{StaticResource BorderStyle}"  Orientation="Vertical" BackgroundColor="White" >
+
+                                                    <Grid>
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition Width="*"></ColumnDefinition>
+                                                            <ColumnDefinition Width="*"></ColumnDefinition>
+
+                                                        </Grid.ColumnDefinitions>
+                                                        <Grid.RowDefinitions>
+                                                            <RowDefinition Height="Auto"></RowDefinition>
+                                                            <RowDefinition Height="Auto"></RowDefinition>
+                                                            <RowDefinition Height="Auto"></RowDefinition>
+                                                        </Grid.RowDefinitions>
+
+
+                                                        <Label FontSize="Medium" FontAttributes="Bold" Text="{Binding Customer_Class_Data.Customer_Name}" Grid.Row="0" Grid.Column="0" />
+
+                                                        <Label FontSize="Medium"  Text="{Binding Customer_Class_Data.Contact_No}" Grid.Row="1" Grid.Column="0"  />
+                                                        <Label FontSize="Medium" Text="{Binding Customer_Class_Data.Address}"  Grid.Row="2" Grid.Column="0"  />
+                                                        <Label FontSize="Medium" FontAttributes="Bold" TextColor="Green"  Text="{Binding Invoice_No}"  Grid.Row="0" Grid.Column="1" />
+                                                        <Label FontSize="Medium" Text="{Binding Created_Date,StringFormat='{0:dd-MM-yyyy}'}"  Grid.Row="1" Grid.Column="1" />
+                                                        <Label FontSize="Medium" Text="{Binding Customer_Class_Data.Email_Id}"  Grid.Row="2" Grid.Column="1" />
+                                                    </Grid>
+                                                </StackLayout>
+                                            </StackLayout>
+                                        </StackLayout>
+
+                                    </ViewCell>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+
+                        </ListView>
+                    </Grid>
+                </StackLayout>
+                <ContentView x:Name="popupLoginView1" BackgroundColor="#C0808080" Padding="10, 0" IsVisible="false" AbsoluteLayout.LayoutBounds="0, 0, 1, 1" AbsoluteLayout.LayoutFlags="All">
+                    <StackLayout VerticalOptions="Center" HorizontalOptions="Center">
+
+                        <Grid BackgroundColor="White">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="3*"></ColumnDefinition>
+                                <ColumnDefinition Width="7*"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <Image Source="cancel.png"   Grid.ColumnSpan="2" Grid.Row="0" HorizontalOptions="EndAndExpand" VerticalOptions="EndAndExpand"  >
+                                <Image.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"></TapGestureRecognizer>
+                                </Image.GestureRecognizers>
+                            </Image>
+                            <Label Text="Start Date : " Margin="5"  Grid.Column="0" Grid.Row="1" />
+                            <DatePicker x:Name="startDatePicker1"
+                                    Grid.Column="1" Grid.Row="1"
+                    Format="D"
+                    Margin="30, 0, 0, 30"
+                    />
+
+                            <Label Text="End Date : " Margin="5"  Grid.Column="0" Grid.Row="2" />
+
+                            <DatePicker x:Name="endDatePicker1"
+                    MinimumDate="{Binding Source={x:Reference startDatePicker1},
+                                          Path=Date}"
+                    Format="D"
+                    Margin="30, 0, 0, 30"
+                     Grid.Column="1" Grid.Row="2"/>
+                            <StackLayout Orientation="Horizontal" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand"
+                                         Grid.ColumnSpan="2" Grid.Row="3" Margin="5">
+                                <Image Source="grayfilter.png"    HorizontalOptions="CenterAndExpand" BackgroundColor="#C0808080" VerticalOptions="CenterAndExpand" Margin="5" >
+                                    <Image.GestureRecognizers>
+                                        <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped_1"></TapGestureRecognizer>
+                                    </Image.GestureRecognizers>
+                                </Image>
+                                <Image  Source="download.png" HorizontalOptions="CenterAndExpand" BackgroundColor="#C0808080" VerticalOptions="CenterAndExpand" Margin="5" >
+                                    <Image.GestureRecognizers>
+                                        <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped_2"></TapGestureRecognizer>
+                                    </Image.GestureRecognizers>
+                                </Image>
+                            </StackLayout>
+
+
+
+                        </Grid>
+
+                    </StackLayout>
+                </ContentView>
+            </AbsoluteLayout>
+        </ContentPage.Content>
+    </ContentPage>
+    <ContentPage x:Name="ReturnInvoice" Title="Return Invoice">
+        <ContentPage.Resources>
+            <ResourceDictionary >
+                <Color x:Key="BackgroundColor">#FFFFFF</Color>
+                <Color x:Key="BorderColor">#575757</Color>
+                <Style x:Key="InternalViewStyle" TargetType="StackLayout">
+                    <Setter Property="BackgroundColor" 
+            Value="{StaticResource BackgroundColor}"/>
+                    <Setter Property="VerticalOptions" Value="Fill"/>
+                    <Setter Property="Padding" Value="10,10,10,10"></Setter>
+                </Style>
+                <Style x:Key="BorderStyle" TargetType="StackLayout">
+                    <Setter Property="BackgroundColor" Value="{StaticResource BorderColor}"/>
+                    <Setter Property="Padding" Value="10,0,0,0"></Setter>
+                </Style>
+            </ResourceDictionary>
+        </ContentPage.Resources>
+        <ContentPage.Content>
+            <AbsoluteLayout Padding="0" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+
+                <StackLayout AbsoluteLayout.LayoutBounds="0, 0, 1, 1" AbsoluteLayout.LayoutFlags="All" Margin="10">
+                    <Grid x:Name="ShowReturnInvoice" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                            <RowDefinition Height="Auto"></RowDefinition>
+
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <SearchBar x:Name="ReturnSearchBar" Placeholder="Search" TextChanged="ReturnSearchBar_TextChanged" SearchButtonPressed="ReturnSearchBar_SearchButtonPressed" Grid.Column="0" Grid.Row="0"></SearchBar>
+                        <Label x:Name="MsgResu" Text="No Result Found." TextColor="Red" Grid.Column="0" Grid.Row="1"
+                       HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" FontSize="Medium" ></Label>
+                        <ListView x:Name="ReturnOrderMasterClassList"  ItemTapped="ReturnOrderMasterClassList_ItemTapped" Refreshing="ReturnOrderMasterClassList_Refreshing" IsPullToRefreshEnabled="True"  HasUnevenRows="True" Grid.Column="0" Grid.Row="2" >
+                            <ListView.Header>
+                                <StackLayout Orientation="Vertical" >
+
+                                </StackLayout>
+
+                            </ListView.Header>
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <ViewCell>
+                                        <StackLayout Margin="0,0,0,15" Style="{StaticResource BorderStyle}">
+                                            <StackLayout   Style="{StaticResource InternalViewStyle}" >
+                                                <StackLayout Style="{StaticResource BorderStyle}"  Orientation="Vertical" BackgroundColor="White" >
+
+                                                    <Grid>
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition Width="*"></ColumnDefinition>
+                                                            <ColumnDefinition Width="*"></ColumnDefinition>
+
+                                                        </Grid.ColumnDefinitions>
+                                                        <Grid.RowDefinitions>
+                                                            <RowDefinition Height="Auto"></RowDefinition>
+                                                            <RowDefinition Height="Auto"></RowDefinition>
+                                                        </Grid.RowDefinitions>
+
+
+                                                        <Label  FontSize="Small"  Text="{Binding Invoice_No,StringFormat='Invoice No. : {0}'}" Grid.Column="0" Grid.Row="0" />
+                                                        <Label  FontSize="Small" FontAttributes="Bold"  Grid.Column="1" Grid.Row="0"  Text="{Binding Created_Date,StringFormat='Date : {0:dd-MM-yyyy}'}" />
+
+                                                        <Label  FontSize="Small" Text="{Binding Total_Item,StringFormat='Total Item :  {0}'}"   Grid.Column="0" Grid.Row="1" />
+
+                                                        <Label  FontSize="Small" Text="{Binding Mod_Of_Return,StringFormat='Mod Of Return :  {0}'}"   Grid.Column="1" Grid.Row="1"/>
+                                                    </Grid>
+                                                </StackLayout>
+                                            </StackLayout>
+                                        </StackLayout>
+
+                                    </ViewCell>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+
+                        </ListView>
+                    </Grid>
+                </StackLayout>
+                <ContentView x:Name="popupLoginView2" BackgroundColor="#C0808080" Padding="10, 0" IsVisible="false" AbsoluteLayout.LayoutBounds="0, 0, 1, 1" AbsoluteLayout.LayoutFlags="All">
+                    <StackLayout VerticalOptions="Center" HorizontalOptions="Center">
+
+                        <Grid BackgroundColor="White">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="3*"></ColumnDefinition>
+                                <ColumnDefinition Width="7*"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <Image Source="cancel.png"   Grid.ColumnSpan="2" Grid.Row="0" HorizontalOptions="EndAndExpand" VerticalOptions="EndAndExpand"  >
+                                <Image.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"></TapGestureRecognizer>
+                                </Image.GestureRecognizers>
+                            </Image>
+                            <Label Text="Start Date : " Margin="5"  Grid.Column="0" Grid.Row="1" />
+                            <DatePicker x:Name="startDatePicker2"
+                                    Grid.Column="1" Grid.Row="1"
+                    Format="D"
+                    Margin="30, 0, 0, 30"
+                    />
+
+                            <Label Text="End Date : " Margin="5"  Grid.Column="0" Grid.Row="2" />
+
+                            <DatePicker x:Name="endDatePicker2"
+                    MinimumDate="{Binding Source={x:Reference startDatePicker2},
+                                          Path=Date}"
+                    Format="D"
+                    Margin="30, 0, 0, 30"
+                     Grid.Column="1" Grid.Row="2"/>
+                            <StackLayout Orientation="Horizontal" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand"
+                                         Grid.ColumnSpan="2" Grid.Row="3" Margin="5">
+                                <Image Source="grayfilter.png"    HorizontalOptions="CenterAndExpand" BackgroundColor="#C0808080" VerticalOptions="CenterAndExpand" Margin="5" >
+                                    <Image.GestureRecognizers>
+                                        <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped_1"></TapGestureRecognizer>
+                                    </Image.GestureRecognizers>
+                                </Image>
+                                <Image  Source="download.png" HorizontalOptions="CenterAndExpand" BackgroundColor="#C0808080" VerticalOptions="CenterAndExpand" Margin="5" >
+                                    <Image.GestureRecognizers>
+                                        <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped_2"></TapGestureRecognizer>
+                                    </Image.GestureRecognizers>
+                                </Image>
+                            </StackLayout>
+
+
+
+                        </Grid>
+
+                    </StackLayout>
+                </ContentView>
+            </AbsoluteLayout>
+        </ContentPage.Content>
+    </ContentPage>
+
+    <!--<ContentPage.Resources>
+        <ResourceDictionary x:Name="AppDictionary">
+            <Color x:Key="BackgroundColor">#FFFFFF</Color>
+            <Color x:Key="BorderColor">#575757</Color>
+            <Style x:Key="InternalViewStyle" TargetType="StackLayout">
+                <Setter Property="BackgroundColor" 
+            Value="{StaticResource BackgroundColor}"/>
+                <Setter Property="VerticalOptions" Value="Fill"/>
+                <Setter Property="Padding" Value="10,10,10,10"></Setter>
+            </Style>
+            <Style x:Key="BorderStyle" TargetType="StackLayout">
+                <Setter Property="BackgroundColor" Value="{StaticResource BorderColor}"/>
+                <Setter Property="Padding" Value="10,0,0,0"></Setter>
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Style>
+
+        .btmButton1 {
+background: linear-gradient(to bottom, #039795, #196e6d);
+color: #ffffff;
+
+margin: 0;
+border-radius: 0;
+}
+
+.btmButton2 {
+background: linear-gradient(to bottom, #5c0eb3, #3f1968);
+color: #ffffff;
+
+margin: 0;
+border-radius: 0;
+}
+
+#top {
+height: calc("(Zebble.Device.Screen.Height - 116)");
+background: #dadada
+}
+
+#bottomMenu {
+width: calc("Zebble.Device.Screen.Width");
+
+}
+    </ContentPage.Style>-->
+    <!--<ContentPage.Content>
+        <StackLayout>
+            <Grid  Margin="10" StyleId="bottomMenu">
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="5*"></ColumnDefinition>
+                    <ColumnDefinition Width="5*"></ColumnDefinition>
+
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+
+                </Grid.RowDefinitions>
+                <Grid x:Name="gridFilter" Grid.ColumnSpan="2" Grid.Row="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="3*"></ColumnDefinition>
+                        <ColumnDefinition Width="7*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
+
+                    </Grid.RowDefinitions>
+                    <Label Text="Start Date : "  Grid.Column="0" Grid.Row="0" />
+                    <DatePicker x:Name="startDatePicker"
+                                    Grid.Column="1" Grid.Row="0"
+                    Format="D"
+                    Margin="30, 0, 0, 30"
+                    DateSelected="OnDateSelected" />
+
+                    <Label Text="End Date : "  Grid.Column="0" Grid.Row="1" />
+
+                    <DatePicker x:Name="endDatePicker"
+                    MinimumDate="{Binding Source={x:Reference startDatePicker},
+                                          Path=Date}"
+                    Format="D"
+                    Margin="30, 0, 0, 30"
+                    DateSelected="OnDateSelected"  Grid.Column="1" Grid.Row="1"/>
+                    <Button Text="Download"    BackgroundColor="#ba6222" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"  TextColor="White"  Grid.ColumnSpan="2" Grid.Row="2" Clicked="Button_Clicked" ></Button>
+                   
+                </Grid>
+                <Label Text="Date Filter :" VerticalOptions="StartAndExpand" HorizontalOptions="StartAndExpand" Grid.Column="0" Grid.Row="1"/>
+                <Switch x:Name="includeSwitch" 
+                    Toggled="OnSwitchToggled"  OnColor="#ba6222" VerticalOptions="StartAndExpand" BackgroundColor="Black"  HorizontalOptions="EndAndExpand" Grid.Column="1" Grid.Row="1"/>
+              
+                <Button Text="Order Invoice"   Command="{Binding CommandGetInvoiceOrder}"   BackgroundColor="#ba6222"  HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"  TextColor="White"  Grid.Column="0" Grid.Row="2"></Button>
+                <Button Text="Customer Invoice"   Command="{Binding CommandGetInvoiceCustomer}"   BackgroundColor="#ba6222" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"  TextColor="White"  Grid.Column="1" Grid.Row="2" HeightRequest="60" ></Button>
+            </Grid>
+            <StackLayout   Padding="10" Margin="5" Spacing="30" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+                <Grid x:Name="ShowCustomerInvoice" IsVisible="{Binding Show_Customer_Invoice}">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                            <RowDefinition Height="Auto"></RowDefinition>
+
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <SearchBar x:Name="SellSearchBar" Placeholder="Search" TextChanged="SellSearchBar_TextChanged" SearchButtonPressed="SellSearchBar_SearchButtonPressed" Grid.Column="0" Grid.Row="0"></SearchBar>
+                        <Label x:Name="MsgResult" Text="No Result Found." TextColor="Red" Grid.Column="0" Grid.Row="1"
+                       HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" FontSize="Medium" ></Label>
+                        <ListView x:Name="FranchiseSellClassList" ItemsSource="{Binding _Franchise_Sell_Class_List}" ItemTapped="FranchiseSellClassList_ItemTapped" Refreshing="FranchiseSellClassList_Refreshing" IsPullToRefreshEnabled="True"  HasUnevenRows="True" Grid.Column="0" Grid.Row="2" >
+                            <ListView.Header>
+                            <StackLayout Orientation="Vertical" >
+
+                            </StackLayout>
+
+                        </ListView.Header>
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <ViewCell>
+                                        <StackLayout Margin="0,0,0,15" Style="{StaticResource BorderStyle}">
+                                            <StackLayout   Style="{StaticResource InternalViewStyle}" >
+                                                <StackLayout Style="{StaticResource BorderStyle}"  Orientation="Vertical" BackgroundColor="White" >
+
+                                                    <Grid>
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition Width="*"></ColumnDefinition>
+                                                            <ColumnDefinition Width="*"></ColumnDefinition>
+
+                                                        </Grid.ColumnDefinitions>
+                                                        <Grid.RowDefinitions>
+                                                            <RowDefinition Height="Auto"></RowDefinition>
+                                                            <RowDefinition Height="Auto"></RowDefinition>
+                                                            <RowDefinition Height="Auto"></RowDefinition>
+                                                        </Grid.RowDefinitions>
+
+
+                                                        <Label FontSize="Medium" FontAttributes="Bold" Text="{Binding Customer_Class_Data.Customer_Name}" Grid.Row="0" Grid.Column="0" />
+
+                                                        <Label FontSize="Medium"  Text="{Binding Customer_Class_Data.Contact_No}" Grid.Row="1" Grid.Column="0"  />
+                                                        <Label FontSize="Medium" Text="{Binding Customer_Class_Data.Address}"  Grid.Row="2" Grid.Column="0"  />
+                                                        <Label FontSize="Medium" FontAttributes="Bold" TextColor="Green"  Text="{Binding Invoice_No}"  Grid.Row="0" Grid.Column="1" />
+                                                        <Label FontSize="Medium" Text="{Binding Created_Date,StringFormat='{0:dd-MM-yyyy}'}"  Grid.Row="1" Grid.Column="1" />
+                                                        <Label FontSize="Medium" Text="{Binding Customer_Class_Data.Email_Id}"  Grid.Row="2" Grid.Column="1" />
+                                                    </Grid>
+                                                </StackLayout>
+                                            </StackLayout>
+                                        </StackLayout>
+
+                                    </ViewCell>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+
+                        </ListView>
+                    </Grid>
+                <Grid x:Name="ShowOrderInvoice" IsVisible="{Binding Show_Order_Invoice}">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"></ColumnDefinition>
+                            <ColumnDefinition Width="5*"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                       
+
+                        <SearchBar x:Name="OrderSearchBar" Placeholder="Search" TextChanged="OrderSearchBar_TextChanged" SearchButtonPressed="OrderSearchBar_SearchButtonPressed" Grid.Row="0" Grid.Column="0"></SearchBar>
+                        <Label x:Name="MsgResul" Text="No Result Found." TextColor="Red" Grid.Row="1" 
+                     HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" FontSize="Medium"  Grid.Column="0" ></Label>
+
+
+                        <ListView x:Name="OrderMasterClassList"  ItemsSource="{Binding _OrderMaster_Class_List}" Grid.Row="2" Grid.Column="0" ItemTapped="OrderMasterClassList_ItemTapped" IsPullToRefreshEnabled="True" Refreshing="OrderMasterClassList_Refreshing"  HasUnevenRows="True" >
+                            <ListView.Header>
+                        <StackLayout Orientation="Vertical">
+                            
+                        </StackLayout>
+
+                    </ListView.Header>
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+
+                                    <ViewCell>
+                                        <StackLayout Margin="0,0,0,15" Style="{StaticResource BorderStyle}">
+                                            <StackLayout   Style="{StaticResource InternalViewStyle}" >
+                                                <StackLayout Style="{StaticResource BorderStyle}"  Orientation="Vertical" BackgroundColor="White" >
+
+                                                    <Grid>
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition Width="*"></ColumnDefinition>
+                                                            <ColumnDefinition Width="*"></ColumnDefinition>
+
+                                                        </Grid.ColumnDefinitions>
+                                                        <Grid.RowDefinitions>
+                                                            <RowDefinition Height="Auto"></RowDefinition>
+                                                            <RowDefinition Height="Auto"></RowDefinition>
+                                                            <RowDefinition Height="Auto"></RowDefinition>
+                                                        </Grid.RowDefinitions>
+
+                                                        <Label HorizontalOptions="StartAndExpand"  FontSize="Medium"   Text="{Binding Created_Date,StringFormat='{0:dd-MM-yyyy}'}" Grid.Column="0" Grid.Row="0" />
+                                                        <Label HorizontalOptions="EndAndExpand"  FontSize="15" FontAttributes="Bold"  Text="{Binding Total_Amount,StringFormat='Total Amount : {0}'}" Grid.Column="1" Grid.Row="0"   />
+
+                                                        <Label  Grid.Column="0" Grid.Row="1"   FontSize="Medium"   Text="{Binding Invoice_No,StringFormat='Invoice No.{0}'}" />
+
+                                                        <Label Grid.Column="1" Grid.Row="1"   FontSize="15" FontAttributes="Bold"  Text="{Binding Total_Item,StringFormat='Total Items : {0}'}" />
+                                                    </Grid>
+                                                </StackLayout>
+                                            </StackLayout>
+                                        </StackLayout>
+                                    </ViewCell>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
+                    </Grid>
+               
+        </StackLayout>
+        
+        </StackLayout>
+    </ContentPage.Content>-->
+</TabbedPage>

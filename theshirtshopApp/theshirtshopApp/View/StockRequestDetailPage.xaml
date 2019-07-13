@@ -1,0 +1,58 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="theshirtshopApp.View.StockRequestDetailPage"
+              xmlns:converter="clr-namespace:theshirtshopApp.ValueConverter"
+             BackgroundImage="Screen.png"
+             Title="Request Detail"
+             NavigationPage.HasNavigationBar="False"
+             >
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converter:ChangeColorAccourdingStatus x:Key="ColorAccourding" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <ScrollView>
+
+            <!--<StackLayout  Orientation="Vertical" Margin="15" Padding="15" Spacing="10"  HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">-->
+                <StackLayout Padding="10" Margin="20"
+                     Spacing="30" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+                    <StackLayout  Orientation="Horizontal">
+
+                    <Label  FontSize="20" FontAttributes="Bold" Text="Status" HorizontalOptions="StartAndExpand" />
+                   
+
+                    <Button FontSize="15"  Text="{Binding FranchiseRequest_Class_Data.Action}" BackgroundColor="{Binding  FranchiseRequest_Class_Data.Action,Converter={StaticResource ColorAccourding}}" TextColor="White" HorizontalOptions="EndAndExpand"></Button>
+
+                </StackLayout>
+                <StackLayout Orientation="Horizontal" >
+
+                    <Label FontSize="20" FontAttributes="Bold" Text="Requested Date" HorizontalOptions="StartAndExpand"  />
+
+                    <Label  FontSize="15"   Text="{Binding FranchiseRequest_Class_Data.Requested_Date,StringFormat='{0:dd-MM-yyyy}'}" HorizontalOptions="EndAndExpand" />
+
+                </StackLayout>
+
+                <StackLayout Orientation="Horizontal" >
+
+                    <Label FontSize="20" FontAttributes="Bold" Text="Title" HorizontalOptions="StartAndExpand"  />
+
+                    <Label  FontSize="15"   Text="{Binding FranchiseRequest_Class_Data.Title}" HorizontalOptions="EndAndExpand" />
+
+                </StackLayout>
+                <StackLayout>
+
+                    <Label FontSize="20" FontAttributes="Bold"  Text="Description" VerticalOptions="Start"  />
+
+                    <Label  FontSize="15"   Text="{Binding FranchiseRequest_Class_Data.Description}" VerticalOptions="End" />
+
+                </StackLayout>
+
+
+            </StackLayout>
+
+
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

@@ -1,0 +1,72 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:theshirtshopApp.Validation"
+             x:Class="theshirtshopApp.MainPage"
+             BackgroundImage="Screen.png"
+             xmlns:control="clr-namespace:XLabs.Forms.Controls;assembly=XLabs.Forms"
+             Title="Login"
+             >
+    <ContentPage.Content>
+        <ScrollView Orientation="Vertical">
+        <ScrollView  VerticalOptions="FillAndExpand"  HorizontalOptions="FillAndExpand">
+
+            <Grid  Margin="15" RowSpacing="20" VerticalOptions="CenterAndExpand" HorizontalOptions="FillAndExpand">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                   
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                </Grid.RowDefinitions>
+
+               
+                <Image Source="logo.png" Grid.Column="0"  Grid.Row="0" />
+
+                <local:MpEntry  x:Name="userid" Grid.Column="0" Grid.Row="1"  Completed="userid_Completed" Text="{Binding User_Id}"  ShowErrorMessage="True"  TextColor="Black"  ></local:MpEntry>
+                <Label  BindingContext="{x:Reference userid}" Grid.Column="0" Grid.Row="2"  IsVisible="{Binding HasError}" Text="{Binding ErrorMessage}" TextColor="Red" />
+
+
+                <local:MpEntry  x:Name="password" Text="{Binding User_Password}" Grid.Column="0" Grid.Row="3"  ShowErrorMessage="True" Completed="password_Completed" IsPassword="True"   TextColor="Black" ></local:MpEntry>
+               
+                <Label BindingContext="{x:Reference password}" IsVisible="{Binding HasError}" Grid.Column="0" Grid.Row="4" Text="{Binding ErrorMessage}" TextColor="Red" />
+                <StackLayout Orientation="Horizontal" Grid.Column="0" Grid.Row="5">
+                    <control:CheckBox  Checked="{Binding Term_Condition_Checked}"      DefaultText="I agree to the " >
+                    
+                </control:CheckBox>
+                    <local:MpLabel Margin="0,5,0,0"  IsUnderlined="True" Text="Terms and Conditions" FontAttributes="Bold" >
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"></TapGestureRecognizer>
+                        </Label.GestureRecognizers> 
+                    </local:MpLabel>
+                </StackLayout>
+                    <Button x:Name="Login" Text="Login" Grid.Column="0" Grid.Row="6"  Command="{Binding LoginCommand}"   BackgroundColor="#ba6222"  TextColor="White" ></Button>
+                    <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" Grid.Column="0" Grid.Row="7" >
+                        <local:MpLabel Margin="0,5,0,0" IsUnderlined="True" Text="Forget Password" FontSize="Small" HorizontalTextAlignment="Start"  VerticalOptions="CenterAndExpand" HorizontalOptions="Start" FontAttributes="Bold" >
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="TapGestureRecognizer_forgetpassword"></TapGestureRecognizer>
+                            </Label.GestureRecognizers>
+                        </local:MpLabel>
+
+                        <local:MpLabel Margin="0,5,0,0" HorizontalTextAlignment="End" IsUnderlined="True" Text="Visit Us" FontSize="Small" VerticalOptions="CenterAndExpand" HorizontalOptions="EndAndExpand" FontAttributes="Bold" >
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped_1"></TapGestureRecognizer>
+                            </Label.GestureRecognizers>
+                        </local:MpLabel>
+                    </StackLayout>
+               
+            </Grid>
+         
+
+        </ScrollView>
+        </ScrollView>
+    </ContentPage.Content>
+
+</ContentPage>

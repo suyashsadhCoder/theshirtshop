@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="theshirtshopApp.View.ReferralPage"
+                 xmlns:local="clr-namespace:theshirtshopApp.Validation"
+             BackgroundImage="Screen.png"
+             Title="Referral"
+             NavigationPage.HasNavigationBar="False"
+             >
+    <ContentPage.Content>
+        <ScrollView>
+            <StackLayout Padding="10" Margin="10" Spacing="30" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+
+                <StackLayout>
+
+                    <Label FontSize="Medium" Text="Name"  VerticalOptions="Start" />
+                    <local:MpEntry Text="{Binding _Referral_Name}"  ShowErrorMessage="True" FontSize="Medium" x:Name="Name" BackgroundColor="White" Keyboard="Text" TextColor="Black" Completed="Name_Completed"  />
+                    <Label  BindingContext="{x:Reference Name}"  IsVisible="{Binding HasError}" Text="{Binding ErrorMessage}" TextColor="Red" />
+                </StackLayout>
+                <StackLayout>
+                    <Label FontSize="Medium" Text="Contact No."  VerticalOptions="Start" />
+                    <local:MpEntry Text="{Binding _Referral_Contect_No}"   ShowErrorMessage="True"  FontSize="Medium" x:Name="ContectNo" Keyboard="Numeric"  BackgroundColor="White"  TextColor="Black" Completed="ContectNo_Completed"    />
+                    <Label  BindingContext="{x:Reference ContectNo}"  IsVisible="{Binding HasError}" Text="{Binding ErrorMessage}" TextColor="Red" />
+                </StackLayout>
+
+                <StackLayout>
+
+                    <Label FontSize="Medium" Text="EmailId"  VerticalOptions="Start" />
+                    <local:MpEntry Text="{Binding _Referral_Email_Id}" Keyboard="Email" ShowErrorMessage="True" FontSize="Medium" x:Name="EmailId" BackgroundColor="White" TextColor="Black" Completed="EmailId_Completed"  />
+                    <Label  BindingContext="{x:Reference EmailId}"  IsVisible="{Binding HasError}" Text="{Binding ErrorMessage}" TextColor="Red" />
+                </StackLayout>
+                <StackLayout>
+
+                    <Label FontSize="Medium" Text="Address"  VerticalOptions="Start" />
+                    <local:MpEditor Text="{Binding _Address}"  ShowErrorMessage="True" FontSize="Medium" x:Name="Address" BackgroundColor="White" Keyboard="Text" TextColor="Black" Completed="Address_Completed" HeightRequest="150" />
+                    <Label  BindingContext="{x:Reference Address}"  IsVisible="{Binding HasError}" Text="{Binding ErrorMessage}" TextColor="Red" />
+                </StackLayout>
+                <StackLayout>
+                    <Button x:Name="Save" Text="Save"  Command="{Binding SubmitCommand}" BackgroundColor="#ba6222"  TextColor="White" />
+                    <!--<ActivityIndicator IsRunning="{Binding Is_Bussy}" VerticalOptions="End" />-->
+                </StackLayout>
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

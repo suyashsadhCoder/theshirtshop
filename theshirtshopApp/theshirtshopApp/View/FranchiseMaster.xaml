@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<MasterDetailPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="theshirtshopApp.View.FranchiseMaster"
+             xmlns:pages="clr-namespace:theshirtshopApp.View"
+             xmlns:controls="clr-namespace:ImageCircle.Forms.Plugin.Abstractions;assembly=ImageCircle.Forms.Plugin"
+                  BackgroundColor="Transparent">
+    <MasterDetailPage.Master >
+        <ContentPage Title="Master" x:Name="master_Page">
+            <ContentPage.Content>
+                <StackLayout Orientation="Vertical" BackgroundColor="Transparent" x:Name="MainStack">
+                    <AbsoluteLayout Padding="0,0,5,0"  HorizontalOptions="FillAndExpand"  BackgroundColor="White" >
+                        <Image Source="master_background" Aspect="AspectFill" AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="HeightProportional, WidthProportional"></Image>
+                        <controls:CircleImage  x:Name="photo" Source="{Binding _Photo}" Aspect="Fill" AbsoluteLayout.LayoutBounds="10,0.4,100,100" AbsoluteLayout.LayoutFlags="YProportional" WidthRequest="100" HeightRequest="100" BorderThickness="3" />
+                        <Label Text="{Binding _Name,StringFormat='Hi, {0}'}" FontAttributes="Bold" FontSize="Medium" AbsoluteLayout.LayoutBounds="0.9,0.5,1,30" AbsoluteLayout.LayoutFlags="YProportional,WidthProportional" HorizontalTextAlignment="End" TextColor="#16776d" ></Label>
+
+                        <Button Image="arrowgreen" HorizontalOptions="StartAndExpand"  AbsoluteLayout.LayoutBounds="1,5,50,35" AbsoluteLayout.LayoutFlags="XProportional"  Clicked="Button_Clicked" BackgroundColor="Transparent"></Button>
+                        <Button Image="imagelogout" HorizontalOptions="EndAndExpand" VerticalOptions="CenterAndExpand" AbsoluteLayout.LayoutBounds="1,1,30,30" AbsoluteLayout.LayoutFlags="XProportional,YProportional" Command="{Binding LogoutComand}"  ></Button>
+
+                    </AbsoluteLayout>
+                    <ListView x:Name="MenuItemsListView" BackgroundColor="Transparent"   SeparatorColor="Silver"  HasUnevenRows="true" ItemsSource="{Binding MenuItems}" ItemTapped="MenuItemsListView_ItemTapped" Refreshing="MenuItemsListView_Refreshing" IsPullToRefreshEnabled="True">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <ViewCell >
+                                    <StackLayout VerticalOptions="FillAndExpand"  Orientation="Horizontal" Padding="20,10,0,10" Spacing="20" BackgroundColor="#36312e">
+                                        <Image Source="{Binding Icon}" WidthRequest="20" HeightRequest="20" VerticalOptions="Center" />
+                                        <Label Text="{Binding Title}"  FontSize="Medium" VerticalOptions="Center" TextColor="Silver"/>
+                                        <Label Text="{Binding Count}" FontSize="Medium" Margin="0,0,10,0" VerticalOptions="EndAndExpand" HorizontalOptions="EndAndExpand" TextColor="Silver"/>
+                                    </StackLayout>
+                                </ViewCell>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                    <StackLayout BackgroundColor="White">
+                        <Label Text="TSSHOP App Version .1" HorizontalOptions="Center" VerticalTextAlignment="Center" TextColor="Black" FontSize="Small"></Label>
+                    </StackLayout>
+                </StackLayout>
+            </ContentPage.Content>
+        </ContentPage>
+    </MasterDetailPage.Master>
+</MasterDetailPage>

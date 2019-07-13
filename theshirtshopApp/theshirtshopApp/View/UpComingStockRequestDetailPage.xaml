@@ -1,0 +1,118 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:theshirtshopApp.Validation"
+             x:Class="theshirtshopApp.View.UpComingStockRequestDetailPage"
+              xmlns:converter="clr-namespace:theshirtshopApp.ValueConverter"
+             BackgroundImage="Screen.png"
+             Title="UpComing Request Detail"
+             NavigationPage.HasNavigationBar="False"
+             >
+    <ContentPage.Resources>
+        <ResourceDictionary x:Name="AppDictionary">
+            <Color x:Key="BackgroundColor">#FFFFFF</Color>
+            <Color x:Key="BorderColor">#575757</Color>
+            <Style x:Key="InternalViewStyle" TargetType="StackLayout">
+                <Setter Property = "BackgroundColor"
+            Value="{StaticResource BackgroundColor}"/>
+                <Setter Property="VerticalOptions" Value="Fill"/>
+                <Setter Property="Padding" Value="10,10,10,10"></Setter>
+            </Style>
+            <Style x:Key="BorderStyle" TargetType="StackLayout">
+                <Setter Property="BackgroundColor" Value="{StaticResource BorderColor}"/>
+                <Setter Property="Padding" Value="10,0,0,0"></Setter>
+            </Style>
+            <converter:OtherChangeColorAccourdingStatus x:Key="ColorAccourding" />
+            <converter:AppendString x:Key="Append" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        
+
+            <StackLayout Margin="10" Orientation="Vertical" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" Spacing="20" >
+                <StackLayout VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" IsVisible="{Binding _Dispatch_Visible}" Spacing="10">
+                    <StackLayout Orientation="Horizontal">
+                        <Label TextColor="Black" FontSize="15" FontAttributes="Bold" Text="Invoice No." HorizontalOptions="StartAndExpand"></Label>
+                        <Label TextColor="Black" FontSize="10" Text="{Binding orderMaster_Class_Data.Invoice_No}" HorizontalOptions="EndAndExpand"></Label>
+                    </StackLayout>
+                    <StackLayout Orientation="Horizontal">
+                        <Label  TextColor="Black" FontSize="15" FontAttributes="Bold" Text="LR Number" HorizontalOptions="StartAndExpand"></Label>
+                        <Label  TextColor="Black" FontSize="10"  Text="{Binding orderMaster_Class_Data.OrderDispatch_Class_Data_.LRNumber}" HorizontalOptions="EndAndExpand"></Label>
+                    </StackLayout>
+                    <StackLayout Orientation="Horizontal">
+                        <Label  TextColor="Black" FontSize="15" FontAttributes="Bold" Text="Transporter Name" HorizontalOptions="StartAndExpand"></Label>
+                        <Label  TextColor="Black" FontSize="10"  Text="{Binding orderMaster_Class_Data.OrderDispatch_Class_Data_.Trasporter_Name}" HorizontalOptions="EndAndExpand"></Label>
+                    </StackLayout>
+                    <StackLayout Orientation="Horizontal">
+                        <Label TextColor="Black" FontSize="15" FontAttributes="Bold" Text="Transporter Contact No." HorizontalOptions="StartAndExpand"></Label>
+                        <Label  TextColor="Black" FontSize="10"  Text="{Binding orderMaster_Class_Data.OrderDispatch_Class_Data_.Transporter_Contact}" HorizontalOptions="EndAndExpand"></Label>
+                    </StackLayout>
+                    <StackLayout Orientation="Vertical">
+                        <Label TextColor="Black" FontSize="15" FontAttributes="Bold" Text="Enter Your Feedback" VerticalOptions="StartAndExpand"></Label>
+                        <local:MpEditor Text="{Binding _Feedback}"   ShowErrorMessage="True"  FontSize="Medium" x:Name="Feedback"  BackgroundColor="White"  TextColor="Black" HeightRequest="100"  />
+                        <Label  BindingContext="{x:Reference Feedback}"  IsVisible="{Binding HasError}" Text="{Binding ErrorMessage}" TextColor="Red" />
+                    </StackLayout>
+                    <StackLayout Orientation="Vertical">
+                        <Button Text="Send"  Command="{Binding SendFeedbackCommand}"   BackgroundColor="#ba6222"  TextColor="White" HorizontalOptions="EndAndExpand" />
+                    </StackLayout>
+                </StackLayout>
+
+
+                <StackLayout Orientation="Vertical" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" >
+                    <ListView x:Name="MyListView"
+            ItemsSource="{Binding orderMaster_Class_Data.odm}"
+          HasUnevenRows="True" >
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <ViewCell>
+<StackLayout Style="{StaticResource BorderStyle}" Margin="0,0,0,15">
+                                            <StackLayout   Style="{StaticResource InternalViewStyle}" >
+                                                <StackLayout Style="{StaticResource BorderStyle}"  Orientation="Vertical" BackgroundColor="White" >
+                                                    <Grid>
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition Width="50"></ColumnDefinition>
+                                                            <ColumnDefinition Width="50"></ColumnDefinition>
+                                                            <ColumnDefinition Width="*"></ColumnDefinition>
+
+
+                                                        </Grid.ColumnDefinitions>
+                                                        <Grid.RowDefinitions>
+                                                            <RowDefinition Height="*"></RowDefinition>
+                                                            <RowDefinition Height="*"></RowDefinition>
+                                                            <RowDefinition Height="*"></RowDefinition>
+                                                            <RowDefinition Height="*"></RowDefinition>
+                                                            <RowDefinition Height="*"></RowDefinition>
+                                                            <RowDefinition Height="*"></RowDefinition>
+                                                    <RowDefinition Height="*"></RowDefinition>
+                                                </Grid.RowDefinitions>
+
+
+                                                        <Image Source="{Binding ArticleMaster_Class_Data.Article_PrimaryImage}"  Grid.Column="0" Grid.RowSpan="6" ></Image>
+                                                        <Image Source="{Binding ArticleMaster_Class_Data.Article_SecondaryImage}" Grid.Column="1" Grid.RowSpan="6" ></Image>
+
+                                                        <Label FontSize="Small" Grid.Column="2" Grid.Row="0" Text="{Binding ArticleMaster_Class_Data.Article_No,StringFormat='Article No. : {0}'}" ></Label>
+                                                        <Label FontSize="Small" Grid.Column="2" Grid.Row="1"  Text="{Binding ArticleMaster_Class_Data.Selling_Price,StringFormat='Selling Price : {0}'}" ></Label>
+
+
+                                                        <Label FontSize="Small" Grid.Column="2" Grid.Row="2"   Text="{Binding ArticleMaster_Class_Data.CategoryMaster_Class_Data.Category_Name,StringFormat='Cat. : {0}'}" ></Label>
+                                                <Label FontSize="Small" Grid.Column="2" Grid.Row="3"   Text="{Binding SubCategoryMaster_Class_Data.SubCategory_Name,StringFormat='SubCat. : {0}'}" ></Label>
+
+                                                <Label FontSize="Small" Grid.Column="2" Grid.Row="4" Text="{Binding ArticleMaster_Class_Data.Color,StringFormat='Color : {0}'}"></Label>
+                                                <Label FontSize="Small" Grid.Column="2" Grid.Row="5" TextColor="#ba6222"  Text="{Binding Quantity,StringFormat='Qty : {0}'}" ></Label>
+                                                        <Label FontSize="Small" Grid.ColumnSpan="3" Grid.Row="6"   Text="{Binding ArticleMaster_Class_Data.Description,StringFormat='Description : {0}'}"></Label>
+
+
+
+                                                    </Grid>
+                                                </StackLayout>
+                                            </StackLayout>
+                                        </StackLayout>
+                                </ViewCell>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </StackLayout>
+            </StackLayout>
+       
+    </ContentPage.Content>
+</ContentPage>

@@ -1,0 +1,200 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="theshirtshopApp.View.HomePage"
+             xmlns:controls="clr-namespace:theshirtshopApp.Controls"
+             Title="Home" 
+             NavigationPage.HasNavigationBar="False"
+             xmlns:local="clr-namespace:theshirtshopApp.Validation">
+    <ContentPage.Content>
+        <Grid >
+            <Image Source="ScreenOne" Aspect="AspectFill"></Image>
+            <RelativeLayout>
+                <Image Source="shapebg" RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent,Property=Width, Factor=1}"></Image>
+                <StackLayout HorizontalOptions="FillAndExpand" 
+                             RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent,Property=Width, Factor=1}" 
+                             RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent,Property=Height, Factor=1}" 
+                              Padding="5" BackgroundColor="Transparent">
+                    <StackLayout Orientation="Horizontal">
+                        <Grid RowSpacing="5" ColumnSpacing="20" Padding="5" HorizontalOptions="Start" >
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                <ColumnDefinition Width="Auto"></ColumnDefinition>
+
+                            </Grid.ColumnDefinitions>
+                            <Label Text="Sliver" Grid.Row="0"  Grid.Column="0" FontSize="Large" TextColor="Silver"></Label>
+                            <controls:CurvedCornersLabel Grid.Row="0" WidthRequest="60"  Grid.Column="1" Text="{Binding _FranchiseAchieveRewardDetail_Class_Date[0].Totla_Amount, StringFormat='₹ {0}'}" HorizontalTextAlignment="Center" VerticalOptions="Center" TextColor="Silver" CurvedCornerRadius="5" CurvedBackgroundColor="Silver"></controls:CurvedCornersLabel>
+                            <Label Text="{Binding _FranchiseAchieveRewardDetail_Class_Date[0].Purchase_Point, StringFormat=' {0} Points'}" Grid.Row="0" VerticalOptions="Center" VerticalTextAlignment="Center"  Grid.Column="2"  TextColor="Silver"></Label>
+
+                            <Label Text="Gold" Grid.Row="1"  Grid.Column="0" FontSize="Large" TextColor="Silver"></Label>
+                            <controls:CurvedCornersLabel Grid.Row="1" WidthRequest="60"   Grid.Column="1" Text="{Binding _FranchiseAchieveRewardDetail_Class_Date[1].Totla_Amount, StringFormat='₹ {0}'}" HorizontalTextAlignment="Center" VerticalOptions="Center" TextColor="#D79A04" CurvedCornerRadius="5" CurvedBackgroundColor="#D79A04"></controls:CurvedCornersLabel>
+                            <Label Text="{Binding _FranchiseAchieveRewardDetail_Class_Date[1].Purchase_Point, StringFormat=' {0} Points'}" Grid.Row="1" VerticalOptions="Center" VerticalTextAlignment="Center"   Grid.Column="2"  TextColor="Silver"></Label>
+
+                            <Label Text="Platinum" Grid.Row="2"  Grid.Column="0" FontSize="Large" TextColor="Silver"></Label>
+                            <controls:CurvedCornersLabel Grid.Row="2" WidthRequest="60"   Grid.Column="1" Text="{Binding _FranchiseAchieveRewardDetail_Class_Date[2].Totla_Amount, StringFormat='₹ {0}'}" HorizontalTextAlignment="Center" VerticalOptions="Center" TextColor="#ACACAA" CurvedCornerRadius="5" CurvedBackgroundColor="#ACACAA"></controls:CurvedCornersLabel>
+                            <Label Text="{Binding _FranchiseAchieveRewardDetail_Class_Date[2].Purchase_Point,StringFormat=' {0} Points' }" Grid.Row="2" VerticalOptions="Center" VerticalTextAlignment="Center"   Grid.Column="2"  TextColor="Silver"></Label>
+                        </Grid>
+                        <StackLayout HorizontalOptions="EndAndExpand" Padding="10" >
+                            <Label Text="Total" FontSize="Medium"  VerticalOptions="Start" VerticalTextAlignment="Center"  HorizontalOptions="Center"  HorizontalTextAlignment="Center" TextColor="White"></Label>
+                            <Label Text="₹" FontSize="Large" FontAttributes="Bold"  VerticalOptions="Center" VerticalTextAlignment="Center" HorizontalOptions="Center"  HorizontalTextAlignment="Center"  TextColor="#87b201"></Label>
+                            <Label Text="{Binding _FranchiseAchieveRewardDetail_Class_Date[0].Totla_Amount}" FontSize="Medium" FontAttributes="Bold"  VerticalOptions="End" VerticalTextAlignment="Center"  HorizontalOptions="Center"  HorizontalTextAlignment="Center" TextColor="#87b201"></Label>
+                        </StackLayout>
+                    </StackLayout>
+                    <StackLayout HorizontalOptions="Center" VerticalOptions="CenterAndExpand">
+                        <Label Text="Welcome To" FontSize="Large" FontAttributes="Bold" TextColor="White" HorizontalOptions="Center"></Label>
+                        <Image Source="tsswhitelogo" HorizontalOptions="Center"></Image>
+                        <Label Text="Network" FontSize="Large" TextColor="White" FontAttributes="Bold" HorizontalOptions="Center"></Label>
+                        <Button Text="www.theshirtshop.in"  TextColor="White" BackgroundColor="Transparent" Clicked="Button_Clicked_1"></Button>
+                    </StackLayout>
+                    <StackLayout Padding="10" VerticalOptions="EndAndExpand" HeightRequest="50" HorizontalOptions="FillAndExpand">
+                        <StackLayout Padding="1" HorizontalOptions="FillAndExpand"   BackgroundColor="Silver">
+                            <Button Text="Sell Now"  TextColor="White" Clicked="Button_Clicked" BackgroundColor="#166b64"></Button>
+                        </StackLayout>
+                    </StackLayout>
+                </StackLayout>
+
+            </RelativeLayout>
+
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>
+<!--<ScrollView Orientation="Vertical">
+        <Grid Margin="10">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="70" />
+                <RowDefinition Height="70" />
+                <RowDefinition Height="70" />
+                <RowDefinition Height="70" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="2*" />
+                <ColumnDefinition Width="7*" />
+            </Grid.ColumnDefinitions>
+            <Label Text="Welcome To"  FontAttributes="Bold" FontSize="Medium" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" TextColor="Black" Grid.Row="0" Grid.ColumnSpan="4"/>
+            <Image Source="logo.png" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" Grid.Row="1"  Grid.ColumnSpan="4" Aspect="Fill"  />
+            <Label Text="Network"  FontAttributes="Bold" FontSize="Large" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" TextColor="Black" Grid.Row="2"  Grid.ColumnSpan="4" />
+            <StackLayout  Grid.ColumnSpan="3" Grid.Column="1" Grid.Row="3"   BackgroundColor="#fe4181" Orientation="Horizontal"    Margin="10,0,0,0" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+                <Grid  Margin="50,5,5,5" HorizontalOptions="FillAndExpand">
+                    <StackLayout Orientation="Vertical" HorizontalOptions="Start">
+                        <Label Text="Silver" FontSize="Small" FontAttributes="Bold" VerticalOptions="StartAndExpand" HorizontalOptions="Center" TextColor="White" />
+                        <Button Image="rs.png" Text="{Binding _FranchiseAchieveRewardDetail_Class_Date[0].Totla_Amount}" FontSize="Large" FontAttributes="Bold" VerticalOptions="EndAndExpand" BackgroundColor="Transparent" TextColor="White"  HorizontalOptions="CenterAndExpand" />
+                    </StackLayout>
+                    <Label  Text="{Binding _FranchiseAchieveRewardDetail_Class_Date[0].Purchase_Point}" FontSize="Large" FontAttributes="Bold" VerticalOptions="StartAndExpand" TextColor="White" HorizontalOptions="EndAndExpand" />
+                </Grid>
+            </StackLayout>
+            <Image  Source="silver.png" Grid.ColumnSpan="2" Grid.Column="0" Grid.Row="3"   Aspect="AspectFit"  />
+            <StackLayout  Grid.ColumnSpan="3" Grid.Column="1" Grid.Row="4"   BackgroundColor="#fdcd40" Orientation="Horizontal"    Margin="10,0,0,0" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+                <Grid Margin="50,5,5,5" HorizontalOptions="FillAndExpand">
+                    <StackLayout Orientation="Vertical" HorizontalOptions="Start">
+                        <Label Text="Gold" FontSize="Small" FontAttributes="Bold" VerticalOptions="StartAndExpand" HorizontalOptions="Center" TextColor="White" />
+                        <Button Image="rs.png" Text="{Binding _FranchiseAchieveRewardDetail_Class_Date[1].Totla_Amount}" FontSize="Large" FontAttributes="Bold" VerticalOptions="EndAndExpand" BackgroundColor="Transparent" TextColor="White"  HorizontalOptions="CenterAndExpand" />
+                    </StackLayout>
+                    <Label  Text="{Binding _FranchiseAchieveRewardDetail_Class_Date[1].Purchase_Point}" FontSize="Large" FontAttributes="Bold" VerticalOptions="StartAndExpand" TextColor="White" HorizontalOptions="EndAndExpand" />
+                </Grid>
+            </StackLayout>
+            <Image  Source="gold.png" Grid.ColumnSpan="2" Grid.Column="0" Grid.Row="4"   Aspect="AspectFit"  />
+            <StackLayout  Grid.ColumnSpan="3" Grid.Column="1" Grid.Row="5"   BackgroundColor="#37c3ff" Orientation="Horizontal"    Margin="10,0,0,0" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+                <Grid  Margin="50,5,5,5" HorizontalOptions="FillAndExpand">
+                    <StackLayout Orientation="Vertical" HorizontalOptions="Start">
+                        <Label Text="Platinum" FontSize="Small" FontAttributes="Bold" VerticalOptions="StartAndExpand" HorizontalOptions="Center" TextColor="White" />
+                        <Button Image="rs.png" Text="{Binding _FranchiseAchieveRewardDetail_Class_Date[2].Totla_Amount}" FontSize="Large" FontAttributes="Bold" VerticalOptions="EndAndExpand" BackgroundColor="Transparent" TextColor="White"  HorizontalOptions="CenterAndExpand" />
+                    </StackLayout>
+                    <Label  Text="{Binding _FranchiseAchieveRewardDetail_Class_Date[2].Purchase_Point}" FontSize="Large" FontAttributes="Bold" VerticalOptions="Start" TextColor="White" HorizontalOptions="End" />
+                </Grid>
+            </StackLayout>
+            <Image  Source="Platinum.png" Grid.ColumnSpan="2" Grid.Column="0" Grid.Row="5"   Aspect="AspectFit"  />
+            <StackLayout  Grid.ColumnSpan="3" Grid.Column="1" Grid.Row="6"   BackgroundColor="#0186d5" Orientation="Vertical"    Margin="10,0,0,0" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+                <Label Text="Total" FontSize="Small" FontAttributes="Bold" VerticalOptions="StartAndExpand" HorizontalOptions="CenterAndExpand" TextColor="White"/>
+                <Button Image="rs.png" Text="{Binding Total}" FontSize="Large" FontAttributes="Bold" VerticalOptions="EndAndExpand" BackgroundColor="Transparent" TextColor="White" HorizontalOptions="CenterAndExpand" />
+            </StackLayout>
+            <Image  Source="total.png" Grid.ColumnSpan="2" Grid.Column="0" Grid.Row="6"   Aspect="AspectFit"  />
+        </Grid>
+    </ScrollView>-->
+    
+
+<!--<AbsoluteLayout  Grid.Column="0" Grid.Row="4"  >
+
+
+
+                    <Frame  AbsoluteLayout.LayoutBounds="1,1,1,1" AbsoluteLayout.LayoutFlags="All" Margin="30,0,0,0" BackgroundColor="#fecd40"  HasShadow="true" OutlineColor="Silver"  CornerRadius="10" >
+                        
+                    </Frame>
+                    <Grid Margin="50,0,0,0" AbsoluteLayout.LayoutBounds="1,1,1,1" AbsoluteLayout.LayoutFlags="All">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+
+                        <StackLayout Orientation="Vertical" Grid.Row="0" Grid.Column="0">
+                            <Label Text="Gold" FontSize="Small" FontAttributes="Bold" VerticalOptions="StartAndExpand" HorizontalOptions="CenterAndExpand" TextColor="White"/>
+                            <Button Image="rs.png" Text="{Binding _FranchiseAchieveRewardDetail_Class_Date[1].Totla_Amount}" FontSize="Large" FontAttributes="Bold" VerticalOptions="EndAndExpand" BackgroundColor="Transparent" TextColor="White" HorizontalOptions="CenterAndExpand" />
+                        </StackLayout>
+
+                        <Label  Text="{Binding _FranchiseAchieveRewardDetail_Class_Date[1].Purchase_Point}" FontSize="Large" FontAttributes="Bold" VerticalOptions="Start" TextColor="White" HorizontalOptions="CenterAndExpand" Grid.Row="0" Grid.Column="1"/>
+                    </Grid>
+                    <Image  Source="gold.png"   Aspect="AspectFit" AbsoluteLayout.LayoutBounds="1,1,1,1" AbsoluteLayout.LayoutFlags="All" HorizontalOptions="StartAndExpand" />
+                </AbsoluteLayout>
+
+                <AbsoluteLayout  Grid.Column="0" Grid.Row="5"  >
+
+
+
+                    <Frame  AbsoluteLayout.LayoutBounds="1,1,1,1" AbsoluteLayout.LayoutFlags="All" Margin="30,0,0,0" BackgroundColor="#37c3ff"  HasShadow="true" OutlineColor="Silver"  CornerRadius="10" >
+                     
+                    </Frame>
+                    <Grid Margin="50,0,0,0"  AbsoluteLayout.LayoutBounds="1,1,1,1" AbsoluteLayout.LayoutFlags="All">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+
+                        <StackLayout Orientation="Vertical" Grid.Row="0" Grid.Column="0">
+                            <Label Text="Platinum" FontSize="Small" FontAttributes="Bold" VerticalOptions="StartAndExpand" HorizontalOptions="CenterAndExpand" TextColor="White"/>
+                            <Button Image="rs.png" Text="{Binding _FranchiseAchieveRewardDetail_Class_Date[2].Totla_Amount}" FontSize="Large" FontAttributes="Bold" VerticalOptions="EndAndExpand" BackgroundColor="Transparent" TextColor="White" HorizontalOptions="CenterAndExpand" />
+                        </StackLayout>
+
+                        <Label  Text="{Binding _FranchiseAchieveRewardDetail_Class_Date[2].Purchase_Point}" FontSize="Large" FontAttributes="Bold" VerticalOptions="Start" TextColor="White" HorizontalOptions="CenterAndExpand" Grid.Row="0" Grid.Column="1"/>
+                    </Grid>
+                    <Image  Source="Platinum.png"   Aspect="AspectFit" AbsoluteLayout.LayoutBounds="1,1,1,1" AbsoluteLayout.LayoutFlags="All" HorizontalOptions="StartAndExpand" />
+                </AbsoluteLayout>
+                <AbsoluteLayout  Grid.Column="0" Grid.Row="6"  >
+
+
+
+                    <Frame  AbsoluteLayout.LayoutBounds="1,1,1,1" AbsoluteLayout.LayoutFlags="All" Margin="30,0,0,0" BackgroundColor="#0186d5"  HasShadow="true" OutlineColor="Silver"  CornerRadius="10" >
+                  
+                    </Frame>
+                    <Grid Margin="50,0,0,0" AbsoluteLayout.LayoutBounds="1,1,1,1" AbsoluteLayout.LayoutFlags="All">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+
+                        </Grid.ColumnDefinitions>
+
+                        <StackLayout Orientation="Vertical" Grid.Row="0" Grid.Column="0">
+                            <Label Text="Total" FontSize="Small" FontAttributes="Bold" VerticalOptions="StartAndExpand" HorizontalOptions="CenterAndExpand" TextColor="White"/>
+                            <Button Image="rs.png" Text="{Binding Total}" FontSize="Large" FontAttributes="Bold" VerticalOptions="EndAndExpand" BackgroundColor="Transparent" TextColor="White" HorizontalOptions="CenterAndExpand" />
+                        </StackLayout>
+
+
+                    </Grid>
+                    <Image  Source="total.png"   Aspect="AspectFit" AbsoluteLayout.LayoutBounds="1,1,1,1" AbsoluteLayout.LayoutFlags="All" HorizontalOptions="StartAndExpand" />
+                </AbsoluteLayout>-->

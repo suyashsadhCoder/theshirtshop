@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="theshirtshopApp.View.ViewOnlyReturnRefund"
+             NavigationPage.HasNavigationBar="false" BackgroundColor="#f1ede4">
+    <ContentPage.Content>
+        <StackLayout Padding="5,10,5,10">
+            <ListView  x:Name="returnRefundList" IsPullToRefreshEnabled="True"    ItemsSource="{Binding allReturnDataList}" HasUnevenRows="True" >
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <ViewCell.View>
+                                <StackLayout BackgroundColor="White" Orientation="Horizontal" Padding="10" HorizontalOptions="FillAndExpand">
+                                    <StackLayout Orientation="Vertical" HorizontalOptions="StartAndExpand">
+                                        <Label TextColor="Black" Text = "{Binding OrderReturnId}" FontSize="Small"/>
+                                        <Label TextColor="Gray" Text = "{Binding customername}"  FontSize="Small" />
+                                        <Label TextColor="Gray"  Text = "{Binding CreatedDate}" FontSize="Small"/>
+                                        <Label FontSize="15"  TextColor="#ba6222" Text="{Binding TotalQty, StringFormat='Qty : {0}'}" ></Label>
+                                    </StackLayout>
+                                    <StackLayout Padding="10,10" HorizontalOptions="EndAndExpand" Orientation="Vertical">
+                                        <Label TextColor="Black" Text = "{Binding  totalAmoutInRupees}" FontAttributes="Bold" HorizontalOptions="FillAndExpand" HorizontalTextAlignment="Center"/>
+                                        <Label WidthRequest="100" TextColor="White" HorizontalTextAlignment="Center" Text = "{Binding ReturnStatus}" BackgroundColor="#07549c" />
+                                    </StackLayout>
+                                </StackLayout>
+                            </ViewCell.View>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

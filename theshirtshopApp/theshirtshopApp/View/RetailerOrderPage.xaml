@@ -1,0 +1,330 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="theshirtshopApp.View.RetailerOrderPage"
+              xmlns:local="clr-namespace:theshirtshopApp.Validation"
+                xmlns:viewModel="clr-namespace:theshirtshopApp.ViewModel"
+             BackgroundImage="Screen.png"
+              NavigationPage.HasNavigationBar="False"
+             Title="Retailer Order"
+             >
+
+    <ContentPage.Resources>
+        <ResourceDictionary x:Name="AppDictionary">
+            <Color x:Key="BackgroundColor">#FFFFFF</Color>
+            <Color x:Key="BorderColor">#575757</Color>
+            <Style x:Key="InternalViewStyle" TargetType="StackLayout">
+                <Setter Property = "BackgroundColor"
+            Value="{StaticResource BackgroundColor}"/>
+                <Setter Property="VerticalOptions" Value="Fill"/>
+                <Setter Property="Padding" Value="10,10,10,10"></Setter>
+            </Style>
+            <Style x:Key="BorderStyle" TargetType="StackLayout">
+                <Setter Property="BackgroundColor" Value="{StaticResource BorderColor}"/>
+                <Setter Property="Padding" Value="10,0,0,0"></Setter>
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Style>
+
+        .btmButton1 {
+background: linear-gradient(to bottom, #039795, #196e6d);
+color: #ffffff;
+
+margin: 0;
+border-radius: 0;
+}
+
+.btmButton2 {
+background: linear-gradient(to bottom, #5c0eb3, #3f1968);
+color: #ffffff;
+
+margin: 0;
+border-radius: 0;
+}
+
+#top {
+height: calc("(Zebble.Device.Screen.Height - 116)");
+background: #dadada
+}
+
+#bottomMenu {
+width: calc("Zebble.Device.Screen.Width");
+
+}
+    </ContentPage.Style>
+    <ContentPage.Content>
+
+        <StackLayout   Margin="8" Padding="10" Spacing="30" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+
+            <StackLayout  IsVisible="{Binding _SubStackShowHide}" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" >
+               
+        
+                <!--<Label Text="Hello" FontSize="70" />-->
+                <ListView x:Name="SubMasterList" ItemsSource="{Binding SelectArticleMasterClassList.FranchiseStokeMaster_Class_List}" HasUnevenRows="True">
+
+                    <ListView.Header>
+                        <Grid Margin="0,0,0,15" HeightRequest="300">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="5*"></ColumnDefinition>
+                                <ColumnDefinition Width="5*"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                                <RowDefinition Height="20"></RowDefinition>
+
+                            </Grid.RowDefinitions>
+                            <Image Aspect="Fill" HeightRequest="200"  Source="{Binding SelectArticleMasterClassList.Article_PrimaryImage}" Grid.Column="0" Grid.Row="0" ></Image>
+                            <Image Aspect="Fill" HeightRequest="200"   Source="{Binding SelectArticleMasterClassList.Article_SecondaryImage}" Grid.Column="1" Grid.Row="0"></Image>
+
+                            <Label FontSize="Small"  Text="{Binding SelectArticleMasterClassList.Article_No,StringFormat='Art. No. : {0}'}" Grid.Column="0" Grid.Row="1" ></Label>
+                            <Label FontSize="Small"  Text="{Binding SelectArticleMasterClassList.CategoryMaster_Class_Data.Category_Name,StringFormat='Category Name :  {0}'}" Grid.Column="1" Grid.Row="1"></Label>
+                            <Label FontSize="Small" Text="{Binding SelectArticleMasterClassList.Color,StringFormat='Color : {0}'}" Grid.Column="0" Grid.Row="2"></Label>
+                            <Label FontSize="Small"  Text="{Binding SelectArticleMasterClassList.MRP,StringFormat='MRP : {0}'}" Grid.Column="1" Grid.Row="2"></Label>
+                        </Grid>
+
+                    </ListView.Header>
+                    
+
+                    <ListView.ItemTemplate>
+
+                        <DataTemplate>
+                            <ViewCell>
+                                <StackLayout Margin="0,0,0,15" Style="{StaticResource BorderStyle}">
+                                    <StackLayout   Style="{StaticResource InternalViewStyle}" >
+                                        <StackLayout Style="{StaticResource BorderStyle}"  Orientation="Horizontal" BackgroundColor="White" >
+                                            <Label  FontSize="Medium" Text="{Binding SubCategoryMaster_Class_Data.SubCategory_Name}" HorizontalOptions="StartAndExpand"></Label>
+                                            <local:MpEntry Keyboard="Numeric" BackgroundColor="White"  Text="{Binding Insert_New_Qty}" WidthRequest="100" HorizontalOptions="CenterAndExpand"></local:MpEntry>
+                                            <Label TextColor="#ba6222" FontSize="Medium" Text="{Binding Quantity}" HorizontalOptions="EndAndExpand"></Label>
+                                        </StackLayout>
+                                    </StackLayout>
+
+                                </StackLayout>
+
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+
+
+                <StackLayout Orientation="Horizontal" StyleId="bottomMenu">
+                        <Button Text="Add" VerticalOptions="CenterAndExpand" HorizontalOptions="StartAndExpand" TextColor="White"  BackgroundColor="#ba6222" Command="{Binding AddCommand}" ></Button>
+                        <Button Text="Cancel" VerticalOptions="CenterAndExpand" HorizontalOptions="EndAndExpand" TextColor="White"  BackgroundColor="#ba6222" Command="{Binding CancelCommand}" ></Button>
+                    </StackLayout>
+               
+            </StackLayout>
+            <StackLayout VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand"  IsVisible="{Binding _MainStackShowHide}" >
+                <StackLayout  Orientation="Vertical" >
+                    <Label FontSize="Medium" Text="Mobile No."  VerticalOptions="StartAndExpand" />
+                    <local:MpEntry Text="{Binding _Retailer_Contect_No}"   ShowErrorMessage="True"  FontSize="Medium" x:Name="RetailerContectNo"  BackgroundColor="White"  TextColor="Black" Keyboard="Numeric"  IsEnabled="{Binding _Retailer_Contect_No_Enabled}"  />
+                    <Label  BindingContext="{x:Reference RetailerContectNo}"  IsVisible="{Binding HasError}" Text="{Binding ErrorMessage}" TextColor="Red" />
+                    <Button  Text="{Binding _Button_Text}"  Command="{Binding GetContectCommand}" BackgroundColor="#ba6222" TextColor="White"  HorizontalOptions="StartAndExpand"   VerticalOptions="CenterAndExpand" ></Button>
+                </StackLayout>
+                <StackLayout IsVisible="{Binding _After_Check_Contect}" Orientation="Vertical" >
+
+                    <ListView x:Name="SelectedProductMasterList"  SeparatorVisibility="None" ItemsSource="{Binding _Article_List,Mode=TwoWay}" ItemTapped="SelectedProductMasterList_ItemTapped" HasUnevenRows="True"   >
+                        <ListView.ItemTemplate>
+
+                            <DataTemplate>
+                                <ViewCell>
+                                    <StackLayout Margin="0,0,0,15" Style="{StaticResource BorderStyle}">
+                                        <StackLayout   Style="{StaticResource InternalViewStyle}" >
+                                            <StackLayout Style="{StaticResource BorderStyle}"  Orientation="Vertical" BackgroundColor="White" >
+                                                <Grid>
+                                                    <Grid.RowDefinitions>
+                                                        <RowDefinition Height="*" />
+                                                        <RowDefinition Height="*" />
+                                                        <RowDefinition Height="*" />
+                                                        <RowDefinition Height="*" />
+                                                        <RowDefinition Height="50" />
+                                                    </Grid.RowDefinitions>
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="50" />
+                                                        <ColumnDefinition Width="50" />
+                                                        <ColumnDefinition Width="*" />
+                                                       
+
+                                                    </Grid.ColumnDefinitions>
+
+
+
+                                                    <Image x:Name="ArticlePrimaryImage"  Source="{Binding Article_PrimaryImage}"   Grid.Column="0" Grid.RowSpan="4" >
+
+                                                        <Image.GestureRecognizers>
+                                                            <TapGestureRecognizer
+                Tapped="TapGestureRecognizer_Tapped"
+                />
+                                                        </Image.GestureRecognizers>
+                                                    </Image>
+                                                    <Image  x:Name="ArticleSecondaryImage"   Source="{Binding Article_SecondaryImage}"   Grid.Column="1" Grid.RowSpan="4">
+                                                        <Image.GestureRecognizers>
+                                                            <TapGestureRecognizer
+                Tapped="TapGestureRecognizer_Tapped_1"
+                />
+                                                        </Image.GestureRecognizers>
+                                                    </Image>
+
+                                                    <Label FontSize="Small" Grid.Column="2" Grid.Row="0" Text="{Binding Article_No,StringFormat='Article No. : {0}'}" ></Label>
+                                                    <Label FontSize="Small" Grid.Column="2" Grid.Row="1"  Text="{Binding CategoryMaster_Class_Data.Category_Name,StringFormat='Category : {0}'}" ></Label>
+                                                    <Label FontSize="Small" Grid.Column="2" Grid.Row="2"   Text="{Binding Color,StringFormat='Color : {0}'}"></Label>
+
+
+
+                                                    <!--<Label FontSize="Small" Grid.Column="3" Grid.Row="0" Text="{Binding Selling_Price,StringFormat='Selling Price : {0}'}" ></Label>-->
+
+                                                    <Label FontSize="Small" Grid.Column="2" Grid.Row="3" Text="{Binding MRP,StringFormat='MRP : {0}'}" ></Label>
+                                                    <!--<Label FontSize="Small" Grid.Column="3" Grid.Row="2"  Text="{Binding FixRate,Mode=TwoWay,StringFormat='Fix Rate : {0}'}" ></Label>-->
+
+
+
+                                                    <Label FontSize="Small" Grid.ColumnSpan="3" Grid.Row="4" Grid.Column="0"  Text="{Binding Description,StringFormat='Description : {0}'}"></Label>
+                                                </Grid>
+                                            </StackLayout>
+                                        </StackLayout>
+                                    </StackLayout>
+                                </ViewCell>
+                            </DataTemplate>
+
+                        </ListView.ItemTemplate>
+                    </ListView>
+
+                    <Button Text="Save" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand" IsVisible="{Binding _HideShowSaveButton}" BackgroundColor="#ba6222" Command="{Binding SaveCommand}" TextColor="White" ></Button>
+
+                </StackLayout>
+
+            </StackLayout>
+            
+        </StackLayout>
+
+    </ContentPage.Content>
+
+
+
+    <!--<ContentView.Content>
+        <ScrollView Orientation="Vertical">
+            <RelativeLayout>
+
+
+                <Image Source="Screen.jpg"
+                         HorizontalOptions="FillAndExpand"
+                       VerticalOptions="FillAndExpand"
+                 Aspect="AspectFill"
+                       RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent,Property=Width}"
+                       RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height}" />
+
+                <ActivityIndicator IsRunning="{Binding Is_Bussy}" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"  Color="Black"  RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent,Property=Width}"
+                       RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height}" />
+
+                <Grid RelativeLayout.WidthConstraint=
+              "{ConstraintExpression Type=RelativeToParent, Property=Width}" RowSpacing="15"
+       Padding="15" >
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+
+
+
+                    </Grid.RowDefinitions>
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+
+
+
+
+
+
+
+                    <StackLayout  Orientation="Vertical" Grid.Column="0" Grid.Row="0" >
+                        <Label FontSize="Medium" Text="Mobile No."  VerticalOptions="StartAndExpand" />
+                        <local:MpEntry Text="{Binding _Retailer_Contect_No}"   ShowErrorMessage="True"  FontSize="Medium" x:Name="RetailerContectNo"  BackgroundColor="White"  TextColor="Black" WidthRequest="300"  IsEnabled="{Binding _Retailer_Contect_No_Enabled}"  />
+                        <Label  BindingContext="{x:Reference RetailerContectNo}"  IsVisible="{Binding HasError}" Text="{Binding ErrorMessage}" TextColor="Red" />
+                        <Button  Text="{Binding _Button_Text}"  Command="{Binding GetContectCommand}" HorizontalOptions="StartAndExpand"   VerticalOptions="CenterAndExpand" ></Button>
+                    </StackLayout>
+                    <StackLayout  Orientation="Vertical" Grid.Column="0" Grid.Row="1"  IsVisible="{Binding _After_Check_Contect}" >
+                        <ListView x:Name="SelectedProductMasterList" ItemsSource="{Binding _Selected_Product_Master_List}" HasUnevenRows="True">
+                            <ListView.ItemTemplate>
+
+                                <DataTemplate>
+                                    <ViewCell>
+                                        <Grid  RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height}">
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="Auto" />
+                                                <RowDefinition Height="*" />
+
+                                            </Grid.RowDefinitions>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*" />
+                                            </Grid.ColumnDefinitions>
+
+                                            <StackLayout    Grid.Column="0" Grid.Row="0"  Orientation="Horizontal" >
+                                              
+                                                <Image HeightRequest="100" WidthRequest="50" Source="{Binding  Article_PrimaryImag}"  HorizontalOptions="StartAndExpand"></Image>
+                                                <Image HeightRequest="100" WidthRequest="50"  Source="{Binding Article_SecondaryImage}"   ></Image>
+                                                <StackLayout Orientation="Vertical" HorizontalOptions="CenterAndExpand">
+                                                    <Label FontSize="Medium" Text="Article No." VerticalOptions="Start"  ></Label>
+                                                    <Label FontSize="Medium" Text="Category"  ></Label>
+                                                    <Label FontSize="Medium" Text="Color" ></Label>
+                                                    <Label FontSize="Medium" Text="Selling Price" ></Label>
+                                                    <Label FontSize="Medium" Text="Description" VerticalOptions="End"></Label>
+                                                </StackLayout>
+                                                <StackLayout Orientation="Vertical" HorizontalOptions="EndAndExpand">
+                                                    <Label FontSize="Medium" TextColor="#ba6222" Text="{Binding Article_No}" VerticalOptions="Start" ></Label>
+
+
+                                                    <Label FontSize="Medium" TextColor="#ba6222" Text="{Binding CategoryMaster_Class_Data.Category_Name}" ></Label>
+
+
+                                                    <Label FontSize="Medium" TextColor="#ba6222" Text="{Binding Color}" ></Label>
+
+                                                    <Label FontSize="Medium" TextColor="#ba6222" Text="{Binding Selling_Price}" ></Label>
+
+                                                    <Label FontSize="Medium" TextColor="#ba6222" Text="{Binding Description}" VerticalOptions="End" ></Label>
+                                                </StackLayout>
+
+
+                                            </StackLayout>
+
+
+                                            <ListView x:Name="SelectedSubCategoryMasterList" ItemsSource="{Binding StockMaster_Class_Lsit}" HasUnevenRows="True" Grid.Column="0" Grid.Row="1">
+                                                <ListView.ItemTemplate>
+                                                    <DataTemplate>
+                                                        <ViewCell>
+
+
+                                                            <Label  FontSize="Medium" Text="{Binding SubCategoryMaster_Class_Data.SubCategory_Name}" ></Label>
+
+                                                            <Label FontSize="Medium" Text="{Binding Quantity}"  ></Label>
+
+
+
+                                                         
+                                                        </ViewCell>
+                                                    </DataTemplate>
+                                                </ListView.ItemTemplate>
+                                            </ListView>
+
+
+                                        </Grid>
+
+
+
+                                    </ViewCell>
+                                </DataTemplate>
+
+                            </ListView.ItemTemplate>
+                        </ListView>
+                    </StackLayout>
+
+
+
+                </Grid>
+
+            </RelativeLayout>
+        </ScrollView>
+    </ContentView.Content>-->
+</ContentPage>

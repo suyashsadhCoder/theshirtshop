@@ -1,0 +1,215 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:theshirtshopApp.Validation"
+             x:Class="theshirtshopApp.View.SellPage"
+             BackgroundImage="Screen.png"
+             Title="Sell"
+             NavigationPage.HasNavigationBar="False"
+             >
+    <ContentPage.Resources>
+        <ResourceDictionary x:Name="AppDictionary">
+            <Color x:Key="BackgroundColor">#FFFFFF</Color>
+            <Color x:Key="BorderColor">#575757</Color>
+            <Style x:Key="InternalViewStyle" TargetType="StackLayout">
+                <Setter Property="BackgroundColor"
+            Value="{StaticResource BackgroundColor}"/>
+                <Setter Property="VerticalOptions" Value="Fill"/>
+                <Setter Property="Padding" Value="10,10,10,10"></Setter>
+            </Style>
+            <Style x:Key="BorderStyle" TargetType="StackLayout">
+                <Setter Property="BackgroundColor" Value="{StaticResource BorderColor}"/>
+                <Setter Property="Padding" Value="10,0,0,0"></Setter>
+            </Style>
+        </ResourceDictionary>
+
+    </ContentPage.Resources>
+    <ContentPage.Style>
+
+        .btmButton1 {
+background: linear-gradient(to bottom, #039795, #196e6d);
+color: #ffffff;
+
+margin: 0;
+border-radius: 0;
+}
+
+.btmButton2 {
+background: linear-gradient(to bottom, #5c0eb3, #3f1968);
+color: #ffffff;
+
+margin: 0;
+border-radius: 0;
+}
+
+#top {
+height: calc("(Zebble.Device.Screen.Height - 116)");
+background: #dadada
+}
+
+#bottomMenu {
+width: calc("Zebble.Device.Screen.Width");
+
+}
+    </ContentPage.Style>
+    <ContentPage.Content>
+
+
+        <StackLayout  Margin="10" Padding="5" Spacing="30" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+
+            <StackLayout  VerticalOptions="FillAndExpand" IsVisible="{Binding _SubStackShowHide}" HorizontalOptions="FillAndExpand" Margin="10">
+                <ListView x:Name="SubMasterList" ItemsSource="{Binding SelectArticleMasterClassList.FranchiseStokeMaster_Class_List}" HasUnevenRows="True">
+                    <ListView.Header>
+                        <StackLayout Orientation="Horizontal">
+                            <Label  TextColor="#ba6222" FontSize="Medium" FontAttributes="Bold" Text="Item" HorizontalOptions="StartAndExpand"></Label>
+                            <Label FontAttributes="Bold" TextColor="#ba6222" FontSize="Medium" Text="Insert Qty" HorizontalOptions="CenterAndExpand"></Label>
+                            <Label  FontAttributes="Bold" TextColor="#ba6222" FontSize="Medium" Text="Available Qty" HorizontalOptions="EndAndExpand"></Label>
+                        </StackLayout>
+                    </ListView.Header>
+
+                    <ListView.ItemTemplate>
+
+                        <DataTemplate>
+                            <ViewCell>
+                                <StackLayout Margin="0,0,0,15" Style="{StaticResource BorderStyle}">
+                                    <StackLayout   Style="{StaticResource InternalViewStyle}" >
+                                        <StackLayout Style="{StaticResource BorderStyle}"  Orientation="Horizontal" BackgroundColor="White" >
+
+                                            <Label  FontSize="Medium" Text="{Binding SubCategoryMaster_Class_Data.SubCategory_Name}" HorizontalOptions="StartAndExpand"></Label>
+                                            <local:MpEntry Keyboard="Numeric" BackgroundColor="White"  Text="{Binding Insert_New_Qty}" WidthRequest="100" HorizontalOptions="CenterAndExpand"></local:MpEntry>
+                                            <Label TextColor="#ba6222" FontSize="Medium" Text="{Binding Quantity}" HorizontalOptions="EndAndExpand"></Label>
+                                        </StackLayout>
+                                    </StackLayout>
+                                </StackLayout>
+
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+
+                <StackLayout Orientation="Horizontal" StyleId="bottomMenu">
+                    <Button Text="Add" VerticalOptions="CenterAndExpand" HorizontalOptions="StartAndExpand" TextColor="White"  BackgroundColor="#ba6222" Command="{Binding AddCommand}" IsEnabled="{Binding enableButtons}" ></Button>
+                    <Button Text="Cancel" VerticalOptions="CenterAndExpand" HorizontalOptions="EndAndExpand" TextColor="White" IsEnabled="{Binding enableButtons}"  BackgroundColor="#ba6222" Command="{Binding CancelCommand}" ></Button>
+                </StackLayout>
+
+
+            </StackLayout>
+            <StackLayout  VerticalOptions="FillAndExpand" IsVisible="{Binding _MainStackShowHide}" HorizontalOptions="FillAndExpand" >
+                <StackLayout Orientation="Vertical">
+                    <!--<Label FontSize="Medium" Text="Contact No."  />-->
+                    <local:MpEntry Text="{Binding _Contect_No,Mode=TwoWay}"   ShowErrorMessage="True"  FontSize="Medium" x:Name="ContectNo" IsEnabled="{Binding _Text_Enable}"   Keyboard="Numeric"   BackgroundColor="White"  TextColor="Black"   />
+                    <Label  BindingContext="{x:Reference ContectNo}"  IsVisible="{Binding HasError}" Text="{Binding ErrorMessage}" TextColor="Red"    />
+                    <Button Text="{Binding _Get_Btn_Text}"  Command="{Binding GetContectNoCommand}" IsEnabled="{Binding enableButtons}"  BackgroundColor="#ba6222"  TextColor="White" VerticalOptions="StartAndExpand" HorizontalOptions="StartAndExpand" />
+                </StackLayout>
+
+                <StackLayout  IsVisible="{Binding Registration_layout}"  Orientation="Vertical" >
+                    <!--<Label FontSize="Medium" Text="Name"  VerticalOptions="Start" />-->
+
+                    <local:MpEntry Text="{Binding _Customer_Name}"  ShowErrorMessage="True" FontSize="Medium" x:Name="Name" BackgroundColor="White" Keyboard="Text" TextColor="Black" Completed="Name_Completed"     />
+                    <Label  BindingContext="{x:Reference Name}"  IsVisible="{Binding HasError}" Text="{Binding ErrorMessage}" TextColor="Red" />
+                    <!--<Label FontSize="Medium" Text="Email Id"  VerticalOptions="Start" />-->
+
+
+                    <local:MpEntry Text="{Binding _Customer_Email_Id}" Keyboard="Email" ShowErrorMessage="True" FontSize="Medium" x:Name="EmailId"    BackgroundColor="White" TextColor="Black" />
+                    <Label  BindingContext="{x:Reference EmailId}"  IsVisible="{Binding HasError}" Text="{Binding ErrorMessage}" TextColor="Red" />
+
+                </StackLayout>
+
+                <StackLayout IsVisible="{Binding _Show_And_Hide_Stack}" Orientation="Vertical">
+
+                    <!--<Label FontSize="Medium" Text="Article No."   />-->
+                    <local:MpEntry Text="{Binding _Article_No}"   ShowErrorMessage="True"  FontSize="Medium" x:Name="ArticleNo"  BackgroundColor="White"  TextColor="Black"    />
+                    <Label  BindingContext="{x:Reference ArticleNo}"  IsVisible="{Binding HasError}" Text="{Binding ErrorMessage}" TextColor="Red" />
+                    <StackLayout Orientation="Horizontal">
+                        <Button Text="Get"   Command="{Binding GetArticleNoCommand}" IsEnabled="{Binding enableButtons}" BackgroundColor="#ba6222"  TextColor="White" HorizontalOptions="StartAndExpand" />
+                        <Button Text="Scan"  Command="{Binding GetScanCommand}" IsEnabled="{Binding enableButtons}"  BackgroundColor="#ba6222"  TextColor="White" HorizontalOptions="EndAndExpand" />
+
+
+                    </StackLayout>
+
+                    <!--<ListView x:Name="SelectedProductMasterList" ItemsSource="{Binding _ArticleMaster_Class_List}" ItemTapped="{Binding SelectArticleMasterClassList,Mode=TwoWay}" HasUnevenRows="True">-->
+
+                    <ListView x:Name="SelectedProductMasterList" ItemsSource="{Binding _ArticleMaster_Class_List}" ItemTapped="SelectedProductMasterList_ItemTapped"  HasUnevenRows="True" >
+
+                        <ListView.ItemTemplate>
+
+                            <DataTemplate>
+                                <ViewCell>
+
+                                    <StackLayout Margin="0,0,0,15" Style="{StaticResource BorderStyle}">
+                                        <StackLayout   Style="{StaticResource InternalViewStyle}" Orientation="Vertical">
+
+                                            <StackLayout Style="{StaticResource BorderStyle}"  Orientation="Vertical" BackgroundColor="White" >
+
+                                                <Grid>
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="50"></ColumnDefinition>
+                                                        <ColumnDefinition Width="50"></ColumnDefinition>
+                                                        <ColumnDefinition Width="*"></ColumnDefinition>
+
+                                                    </Grid.ColumnDefinitions>
+                                                    <Grid.RowDefinitions>
+                                                        <RowDefinition Height="*"></RowDefinition>
+                                                        <RowDefinition Height="*"></RowDefinition>
+                                                        <RowDefinition Height="*"></RowDefinition>
+                                                        <RowDefinition Height="*"></RowDefinition>
+                                                        <RowDefinition Height="*"></RowDefinition>
+
+                                                    </Grid.RowDefinitions>
+
+
+
+
+                                                    <Image Grid.Column="0" Grid.RowSpan="4" Source="{Binding Article_PrimaryImage}"  ></Image>
+                                                    <Image Grid.Column="1" Grid.RowSpan="4"   Source="{Binding Article_SecondaryImage}"  ></Image>
+
+
+
+
+                                                    <Label FontSize="Small" Grid.Column="2" Grid.Row="0"  TextColor="#ba6222" Text="{Binding Article_No,StringFormat='Article No. : {0}'}"  ></Label>
+
+
+                                                    <Label FontSize="Small" Grid.Column="2" Grid.Row="1"  TextColor="#ba6222" Text="{Binding CategoryMaster_Class_Data.Category_Name,StringFormat='Category : {0}'}" ></Label>
+
+
+                                                    <Label FontSize="Small" Grid.Column="2" Grid.Row="2" TextColor="#ba6222" Text="{Binding Color,StringFormat='Color : {0}'}" ></Label>
+
+                                                    <Label FontSize="Small" Grid.Column="2" Grid.Row="3"  TextColor="#ba6222" Text="{Binding MRP,StringFormat='MRP : {0}'}" ></Label>
+
+                                                    <Label FontSize="Small" Grid.ColumnSpan="3"  Grid.Row="4"  TextColor="#ba6222" Text="{Binding Description,StringFormat='Description : {0}'}" ></Label>
+                                                </Grid>
+                                                <Button BackgroundColor="#ba6222" Clicked="Button_Clicked" CommandParameter="{Binding .}" Text="Remove" IsEnabled="{Binding enableButtons}" HorizontalOptions="EndAndExpand" TextColor="White" VerticalOptions="EndAndExpand"></Button>
+                                            </StackLayout>
+                                        </StackLayout>
+                                    </StackLayout>
+
+                                </ViewCell>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                        <ListView.Footer>
+                            <Button Text="Save" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand" IsEnabled="{Binding enableButtons}" IsVisible="{Binding _HideShowSaveButton}" BackgroundColor="#ba6222" Command="{Binding SaveCommand}" TextColor="White" ></Button>
+                        </ListView.Footer>
+
+                    </ListView>
+
+
+
+
+                    <!--</Grid>-->
+                </StackLayout>
+
+
+
+
+            </StackLayout>
+        </StackLayout>
+
+    </ContentPage.Content>
+</ContentPage>
+    
+
+
+
+
+
+

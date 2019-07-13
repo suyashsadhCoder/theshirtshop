@@ -1,0 +1,111 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="theshirtshopApp.View.InvoiceDetailsSubmit"
+             NavigationPage.HasNavigationBar="False"
+             xmlns:controls="clr-namespace:theshirtshopApp.Controls">
+    <ContentPage.Content>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Image Source="Screen.png"></Image>
+            <StackLayout Padding="10" BackgroundColor="Transparent">
+                <ListView x:Name="listViewnew" VerticalOptions="FillAndExpand" SelectionMode="None" ItemsSource="{Binding invoiceDetail.articleList}" HasUnevenRows="true">
+                    <ListView.Header>
+                        <StackLayout BackgroundColor ="White" Padding="5">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*"></RowDefinition>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"></ColumnDefinition>
+                                    <ColumnDefinition Width="*"></ColumnDefinition>
+                                    <ColumnDefinition Width="*"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <Label Text="Order" Grid.Row="0" FontSize="Small"  Grid.Column="0"></Label>
+                                <Label Text="{Binding invoiceDetail.InvoiceNo}" Grid.Row="0" FontSize="Small" FontAttributes="Bold" Grid.Column="1" Grid.ColumnSpan="2"></Label>
+                                <Label Text="Order Date" Grid.Row="1"  FontSize="Small" Grid.Column="0"></Label>
+                                <Label Text="{Binding invoiceDetail.CreatedDate}" Grid.Row="1"  FontSize="Small" FontAttributes="Bold" Grid.Column="1" Grid.ColumnSpan="2"></Label>
+                                <Label Text="Amount" Grid.Row="2"  FontSize="Small" Grid.Column="0"></Label>
+                                <Label Text="{Binding invoiceDetail.TotalAmountInRupees}" Grid.Row="2"  FontSize="Small" FontAttributes="Bold" Grid.Column="1" Grid.ColumnSpan="2"></Label>
+                                <Label Text="Quantity Sold" Grid.Row="4"  FontSize="Small" Grid.Column="0"></Label>
+                                <Label Text="{Binding invoiceDetail.TotalQty}" Grid.Row="4"  FontSize="Small" FontAttributes="Bold" Grid.Column="1" Grid.ColumnSpan="2"></Label>
+                                <Label Text="Customer" Grid.Row="3"  FontSize="Small" Grid.Column="0"></Label>
+                                <Label Text="{Binding invoiceDetail.CustomerName}" Grid.Row="3"  FontSize="Small" FontAttributes="Bold" Grid.Column="1" Grid.ColumnSpan="2"></Label>
+                                <StackLayout Grid.Row="4" Grid.Column="2" Padding="1" BackgroundColor="Transparent">
+                                    <StackLayout Padding="1" BackgroundColor="Gray" HorizontalOptions="Fill" VerticalOptions="FillAndExpand">
+                                        <Label Text="{Binding invoiceDetail.SellStatus}" TextColor="White"  BackgroundColor="#07549c" HorizontalOptions="Fill" VerticalOptions="FillAndExpand" FontSize="Small" VerticalTextAlignment="Center" HorizontalTextAlignment="Center"></Label>
+                                    </StackLayout>
+                                </StackLayout>
+                            </Grid>
+                        </StackLayout>
+                    </ListView.Header>
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" BackgroundColor="{Binding backgroundColor}" Padding="10">
+
+                                    <Grid x:Name="Item" >
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="*"></RowDefinition>
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+
+                                        </Grid.ColumnDefinitions>
+                                        <Label Text="Category" Grid.Row="0" FontSize="Small"  Grid.Column="0"></Label>
+                                        <Label Text="{Binding CategoryName}" Grid.Row="0" FontSize="Small" FontAttributes="Bold" Grid.Column="1" Grid.ColumnSpan="2"></Label>
+                                        <Label Text="Sub Category" Grid.Row="1"  FontSize="Small" Grid.Column="0"></Label>
+                                        <Label Text="{Binding SubCategoryName}" Grid.Row="1"  FontSize="Small" FontAttributes="Bold" Grid.Column="1" Grid.ColumnSpan="2"></Label>
+                                        <Label Text="Quantity" Grid.Row="2"  FontSize="Small" Grid.Column="0"></Label>
+                                        <Label Text="{Binding TotalQty}" Grid.Row="2"  FontSize="Small" FontAttributes="Bold" Grid.Column="1" Grid.ColumnSpan="2"></Label>
+                                        <Label Text="MRP" Grid.Row="3"  FontSize="Small" Grid.Column="0"></Label>
+
+                                        <Label Text="{Binding MRP}" Grid.Row="3"  FontSize="Small" FontAttributes="Bold" Grid.Column="1" Grid.ColumnSpan="2"></Label>
+                                        <Label Text="Quantity Adjusted" Grid.Row="4"  FontSize="Small" Grid.Column="0"></Label>
+                                        <Label Text="{Binding AdjustedQty}" Grid.Row="4"  FontSize="Small" FontAttributes="Bold" Grid.Column="1" Grid.ColumnSpan="2"></Label>
+                                        <Label Text="Quantity Available" Grid.Row="5"  FontSize="Small" Grid.Column="0"></Label>
+                                        <Label Text="{Binding AvailableQty}" Grid.Row="5"  FontSize="Small" FontAttributes="Bold" Grid.Column="1" Grid.ColumnSpan="2"></Label>
+
+
+                                        <Label Text="Return" VerticalTextAlignment="Center" Grid.Row="6"  FontSize="Small" Grid.Column="0"></Label>
+
+                                        <StackLayout Grid.Row="6" Grid.Column="1" Orientation="Horizontal" Spacing="1" Padding="1" Grid.ColumnSpan="2" BackgroundColor="Orange" HorizontalOptions="Start" >
+                                            <Label Text="{Binding returnedQty}" BackgroundColor="White" TextColor="Black" WidthRequest="60" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" >
+
+                                            </Label>
+                                        </StackLayout>
+                                        <Label Text="Damaged" VerticalTextAlignment="Center" Grid.Row="7"  FontSize="Small" Grid.Column="0"></Label>
+                                        <StackLayout Grid.Row="7" Grid.Column="1" Orientation="Horizontal" Spacing="1" Padding="1" BackgroundColor="Orange" Grid.ColumnSpan="2" HorizontalOptions="Start" >
+                                            <!--<Button Padding="0" Text="+" HeightRequest="30" WidthRequest="30"  BackgroundColor="White" IsEnabled="{Binding isSelected}" TextColor="Gray" Clicked="Handle_increaseDamage" CommandParameter="{Binding artId}"></Button>
+                                            -->
+                                            <Label Text="{Binding damagedQty}" BackgroundColor="White" VerticalTextAlignment="Center" TextColor="Black" WidthRequest="60" HorizontalTextAlignment="Center" ></Label>
+                                            <!--<Button Padding="0" BackgroundColor="White" HeightRequest="30" WidthRequest="30" Text="-" TextColor="Gray" IsEnabled="{Binding isSelected}" Clicked="Handle_decreaseDamage" CommandParameter="{Binding artId}"></Button>
+                                       -->
+                                        </StackLayout>
+                                    </Grid>
+
+                                </StackLayout>
+
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                    <ListView.Footer>
+                        <StackLayout>
+                        <StackLayout Orientation="Horizontal" HorizontalOptions="Center" VerticalOptions="EndAndExpand">
+                            <controls:NewCheckBox  TextParameter="Return" VerticalOptions="Center" CheckedCommand="{Binding isReturnCommand}" IsChecked="{Binding IsReturn}" CheckedCommandParameter="{Binding IsReturn}"></controls:NewCheckBox>
+                            <controls:NewCheckBox  VerticalOptions="Center" TextParameter="Refund"  CheckedCommand="{Binding isRefundCommand}" IsChecked="{Binding IsRefund}" CheckedCommandParameter="{Binding IsRefund}"  ></controls:NewCheckBox>
+                        </StackLayout>
+                        <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" VerticalOptions="EndAndExpand">
+                            <Button Text="Cancel" TextColor="White"  VerticalOptions="Center"  HorizontalOptions="CenterAndExpand" BackgroundColor="Orange" Padding="20,10" Clicked="cancel_Clicked"  ></Button>
+                            <Button Text="Submit" VerticalOptions="Center" TextColor="White" Command="{Binding submitCommand}" HorizontalOptions="CenterAndExpand" BackgroundColor="Orange" Padding="20,10" ></Button>
+                        </StackLayout>
+                        </StackLayout>
+                    </ListView.Footer>
+                </ListView>
+                
+
+            </StackLayout>
+        </Grid> 
+    </ContentPage.Content>
+</ContentPage>

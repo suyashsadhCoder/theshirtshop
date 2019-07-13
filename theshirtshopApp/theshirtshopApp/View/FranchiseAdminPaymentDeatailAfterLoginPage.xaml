@@ -1,0 +1,109 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="theshirtshopApp.View.FranchiseAdminPaymentDeatailAfterLoginPage">
+    <ContentPage.Style>
+
+        .btmButton1 {
+background: linear-gradient(to bottom, #039795, #196e6d);
+color: #ffffff;
+
+margin: 0;
+border-radius: 0;
+}
+
+.btmButton2 {
+background: linear-gradient(to bottom, #5c0eb3, #3f1968);
+color: #ffffff;
+
+margin: 0;
+border-radius: 0;
+}
+
+#top {
+height: calc("(Zebble.Device.Screen.Height - 116)");
+background: #dadada
+}
+
+#bottomMenu {
+width: calc("Zebble.Device.Screen.Width");
+
+}
+    </ContentPage.Style>
+    <ContentPage.Content>
+        <ScrollView>
+            <StackLayout >
+                <AbsoluteLayout BackgroundColor="Black" HeightRequest="60">
+                    <StackLayout Orientation="Horizontal" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand" >
+                        <Image Margin="3,10,0,10" Source="back.png" HorizontalOptions="StartAndExpand">
+                            <Image.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped" />
+                            </Image.GestureRecognizers>
+
+                        </Image>
+                        <Label Text="Unpaid Slab Detail" Margin="10,10,0,10" FontSize="Large" TextColor="White" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" ></Label>
+                    </StackLayout>
+                </AbsoluteLayout>
+                <ListView x:Name="CustomerList" HasUnevenRows="True" Margin="10">
+                        <ListView.Header>
+                        <Grid  BackgroundColor="#E5E5E5"> 
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="4*"></ColumnDefinition>
+                                    <ColumnDefinition Width="3*"></ColumnDefinition>
+                                    <ColumnDefinition Width="3*"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                            </Grid.RowDefinitions>
+                            
+                                <Label  TextColor="#ba6222" FontSize="Medium" FontAttributes="Bold" Text="Name" HorizontalOptions="StartAndExpand" Grid.Column="0" Grid.Row="0" ></Label>
+                                <Label FontAttributes="Bold" TextColor="#ba6222" FontSize="Medium" Text="Date" HorizontalOptions="CenterAndExpand" Grid.Column="1" Grid.Row="0" ></Label>
+                                <Label  FontAttributes="Bold" TextColor="#ba6222" FontSize="Medium" Text="Amount" HorizontalOptions="EndAndExpand" Grid.Column="2" Grid.Row="0" ></Label>
+                            </Grid>
+                        </ListView.Header>
+                    <ListView.Footer>
+                        <Grid BackgroundColor="#E5E5E5">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="5*"></ColumnDefinition>
+                                <ColumnDefinition Width="5*"></ColumnDefinition>
+                              
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <Label  TextColor="#ba6222" FontSize="Medium" FontAttributes="Bold" Text="Total Amount" HorizontalOptions="StartAndExpand" Grid.Column="0" Grid.Row="0" ></Label>
+                            <Label x:Name="totalAmount" FontAttributes="Bold" TextColor="#ba6222" FontSize="Medium"  HorizontalOptions="CenterAndExpand" Grid.Column="1" Grid.Row="0" ></Label>
+
+                          
+                        </Grid>
+                    </ListView.Footer>
+                        <ListView.ItemTemplate>
+
+                            <DataTemplate>
+                                <ViewCell>
+                                    <Grid Margin="10">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="4*"></ColumnDefinition>
+                                            <ColumnDefinition Width="3*"></ColumnDefinition>
+                                            <ColumnDefinition Width="3*"></ColumnDefinition>
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto"></RowDefinition>
+                                        </Grid.RowDefinitions>
+                                        <Label Text="{Binding Customer_Name}" Grid.Column="0" Grid.Row="0" ></Label>
+                                        <Label Text="{Binding Created_Date,StringFormat='{0:dd-MM-yyyy}'}"  Grid.Column="1" Grid.Row="0" ></Label>
+                                        <Label Text="{Binding Amount}" Grid.Column="2" Grid.Row="0" ></Label>
+                                    </Grid>
+
+                                </ViewCell>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+
+               
+                <Label x:Name="PaymentMsg"  Text="You have paid successfully " VerticalOptions="EndAndExpand"  BackgroundColor="Green" FontSize="Medium"   TextColor="White" />
+                <Button x:Name="CheckOut" Text="Online Transaction" VerticalOptions="EndAndExpand" BackgroundColor="#ba6222" TextColor="White" Clicked="CheckOut_Clicked" ></Button>
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

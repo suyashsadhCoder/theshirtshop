@@ -1,0 +1,124 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="theshirtshopApp.View.RetailerOrderDetailPage"
+                 xmlns:local="clr-namespace:theshirtshopApp.Validation"
+             BackgroundImage="Screen.png"
+             NavigationPage.HasNavigationBar="False"
+             Title="Order Detail"
+             >
+
+    <ContentPage.Resources>
+        <ResourceDictionary x:Name="AppDictionary">
+            <Color x:Key="BackgroundColor">#FFFFFF</Color>
+            <Color x:Key="BorderColor">#575757</Color>
+            <Style x:Key="InternalViewStyle" TargetType="StackLayout">
+                <Setter Property = "BackgroundColor"
+            Value="{StaticResource BackgroundColor}"/>
+                <Setter Property="VerticalOptions" Value="Fill"/>
+                <Setter Property="Padding" Value="10,10,10,10"></Setter>
+            </Style>
+            <Style x:Key="BorderStyle" TargetType="StackLayout">
+                <Setter Property="BackgroundColor" Value="{StaticResource BorderColor}"/>
+                <Setter Property="Padding" Value="10,0,0,0"></Setter>
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <ScrollView>
+
+            <StackLayout  Padding="10" Margin="20" Spacing="30" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+
+
+
+
+                <ListView x:Name="MasterList" ItemsSource="{Binding Employee_OrderGenerate_Class_data.odm}"  HasUnevenRows="True">
+                    <ListView.Header>
+                        <StackLayout Orientation="Vertical">
+                            <StackLayout Orientation="Vertical">
+                                <Label VerticalOptions="StartAndExpand" Text="Dispatch Date" FontSize="Medium"></Label>
+                                <DatePicker Date="{Binding Employee_OrderGenerate_Class_data.DateOfDispatch}"  ></DatePicker>
+                                <Label VerticalOptions="StartAndExpand" Text="Remark" FontSize="Medium"></Label>
+
+                                <Editor Text="{Binding Employee_OrderGenerate_Class_data.Remark}" HeightRequest="150" ></Editor>
+                                <Label VerticalOptions="StartAndExpand" Text="Preferred Transport" FontSize="Medium"></Label>
+                                <Entry Text="{Binding Employee_OrderGenerate_Class_data.PreferredTransport}"></Entry>
+                                <Button  Text="Send OTP"  Command="{Binding SendOTPCommand}" HorizontalOptions="StartAndExpand" VerticalOptions="CenterAndExpand" BackgroundColor="#ba6222" IsVisible="{Binding _Button_Send_OTP_Visible}" TextColor="White"></Button>
+                            </StackLayout>
+
+                                
+
+                            <StackLayout IsVisible="{Binding After_Send_OTP_Command}" Orientation="Vertical" >
+
+                                <Label FontSize="Small" Text="A OTP has been send to your register Mobile No."   VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand"/>
+                                <local:MpEntry Text="{Binding _OTP}"   ShowErrorMessage="True"  FontSize="Medium" x:Name="OTP"  BackgroundColor="White"  Keyboard="Numeric"  TextColor="Black"    />
+                                <Label  BindingContext="{x:Reference OTP}"  IsVisible="{Binding HasError}" Text="{Binding ErrorMessage}" TextColor="Red" />
+                                <!--<Label FontSize="Medium" Text="{Binding _Resived_OTP}"   VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand"/>-->
+                                <Button  Text="Resend OTP"  Command="{Binding SendOTPCommand}" HorizontalOptions="CenterAndExpand" BackgroundColor="Transparent"   VerticalOptions="CenterAndExpand"   TextColor="Blue" ></Button>
+
+                                <Button  Text="Save" TextColor="White"  Command="{Binding SaveCommand}" HorizontalOptions="CenterAndExpand" BackgroundColor="#ba6222"  VerticalOptions="CenterAndExpand" ></Button>
+
+                            </StackLayout>
+                            <StackLayout Orientation="Vertical">
+                                <Label FontSize="Medium" VerticalOptions="CenterAndExpand" HorizontalOptions="StartAndExpand"  FontAttributes="Bold" TextColor="#ba6222" Text="{Binding Employee_OrderGenerate_Class_data.Total_Item,StringFormat='Total Item : {0}'}" ></Label>
+                                <Label FontSize="Medium" VerticalOptions="CenterAndExpand" HorizontalOptions="EndAndExpand"  FontAttributes="Bold" TextColor="#ba6222" Text="{Binding Employee_OrderGenerate_Class_data.Total_Amount,StringFormat='Total Amount : {0}'}" ></Label>
+                            </StackLayout>
+                        </StackLayout>
+
+                    </ListView.Header>
+                    <ListView.ItemTemplate>
+
+                        <DataTemplate>
+                            <ViewCell>
+                                <StackLayout Margin="0,0,0,15" Style="{StaticResource BorderStyle}">
+                                    <StackLayout   Style="{StaticResource InternalViewStyle}" >
+                                        <StackLayout Style="{StaticResource BorderStyle}"  Orientation="Vertical" BackgroundColor="White" >
+
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="50"></ColumnDefinition>
+                                                    <ColumnDefinition Width="50"></ColumnDefinition>
+                                                    <ColumnDefinition Width="*"></ColumnDefinition>
+                                                </Grid.ColumnDefinitions>
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="*"></RowDefinition>
+                                                    <RowDefinition Height="*"></RowDefinition>
+                                                    
+                                                </Grid.RowDefinitions>
+
+
+
+
+                                                <Image Grid.Column="0" Grid.RowSpan="2" Grid.Row="0"   Source="{Binding ArticleMaster_Class_Data.Article_PrimaryImage}"  ></Image>
+                                                <Image Grid.Column="1" Grid.RowSpan="2" Grid.Row="0"  Source="{Binding ArticleMaster_Class_Data.Article_SecondaryImage}"  ></Image>
+
+
+
+
+                                                <Label FontSize="Small" Grid.Column="2" Grid.Row="0"   TextColor="#ba6222" Text="{Binding ArticleMaster_Class_Data.Article_No}"  ></Label>
+
+
+                                                <Label FontSize="Small" Grid.Column="2" Grid.Row="1" TextColor="#ba6222" Text="{Binding CategoryMaster_Class_Date.Category_Name}" ></Label>
+
+
+                                                <Label FontSize="Small" Grid.Column="3" Grid.Row="0" TextColor="#ba6222" Text="{Binding Quantity,StringFormat='Qty : {0}'}" ></Label>
+
+                                                <Label FontSize="Small" Grid.Column="3" Grid.Row="1"  TextColor="#ba6222" Text="{Binding MRP ,StringFormat='MRP : {0}'}" ></Label>
+
+                                                <!--  <Label FontSize="Small" Grid.ColumnSpan="4" Grid.Column="0" Grid.Row="2"   TextColor="#ba6222" Text="{Binding SellPrice,StringFormat='Fix Rate : {0}'}" ></Label>-->
+                                            </Grid>
+                                        </StackLayout>
+                                    </StackLayout>
+                                </StackLayout>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+
+
+
+
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

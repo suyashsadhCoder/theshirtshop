@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+              xmlns:local="clr-namespace:theshirtshopApp.Validation"
+             x:Class="theshirtshopApp.View.StockRequestPage"
+             BackgroundImage="Screen.png"
+             Title="Stock Request"
+             NavigationPage.HasNavigationBar="False"
+             >
+    <ContentPage.Content>
+        <ScrollView>
+                    <StackLayout Margin="10" Orientation="Vertical" Spacing="30"  HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+
+                        <StackLayout>                     
+                            <Label FontSize="Medium" Text="Title"  VerticalOptions="Start" />
+                            <local:MpEntry Text="{Binding Title}"  ShowErrorMessage="True"  FontSize="Medium" x:Name="Title"  BackgroundColor="White"  TextColor="Black" Completed="Title_Completed" Keyboard="Text"   />
+                            <Label  BindingContext="{x:Reference Title}"  IsVisible="{Binding HasError}" Text="{Binding ErrorMessage}" TextColor="Red" />
+                        </StackLayout>
+
+                        <StackLayout>
+
+                            <Label FontSize="Medium" Text="Details"  VerticalOptions="Start" />
+                            <local:MpEditor Text="{Binding Description}"  ShowErrorMessage="True" FontSize="Medium" x:Name="Description" BackgroundColor="White" TextColor="Black" Keyboard="Text" HeightRequest="150" />
+                            <Label  BindingContext="{x:Reference Description}"  IsVisible="{Binding HasError}" Text="{Binding ErrorMessage}" TextColor="Red" />
+                        </StackLayout>
+                        <StackLayout>
+                            <Button Text="Send"  Command="{Binding SendCommand}"  BackgroundColor="#ba6222" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" TextColor="White" />
+                        </StackLayout>
+                    </StackLayout>
+
+               
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

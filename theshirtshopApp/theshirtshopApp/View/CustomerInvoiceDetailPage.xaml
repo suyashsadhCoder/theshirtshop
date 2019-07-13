@@ -1,0 +1,134 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="theshirtshopApp.View.CustomerInvoiceDetailPage"
+             BackgroundImage="Screen.png"
+             Title="Customer Invoice"
+             NavigationPage.HasNavigationBar="False"
+             xmlns:local="clr-namespace:theshirtshopApp.Validation"
+             >
+    <ContentPage.Resources>
+        <ResourceDictionary x:Name="AppDictionary">
+            <Color x:Key="BackgroundColor">#FFFFFF</Color>
+            <Color x:Key="BorderColor">#575757</Color>
+            <Style x:Key="InternalViewStyle" TargetType="StackLayout">
+                <Setter Property="BackgroundColor" 
+            Value="{StaticResource BackgroundColor}"/>
+                <Setter Property="VerticalOptions" Value="Fill"/>
+                <Setter Property="Padding" Value="10,10,10,10"></Setter>
+            </Style>
+            <Style x:Key="BorderStyle" TargetType="StackLayout">
+                <Setter Property="BackgroundColor" Value="{StaticResource BorderColor}"/>
+                <Setter Property="Padding" Value="10,0,0,0"></Setter>
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Style>
+
+        .btmButton1 {
+background: linear-gradient(to bottom, #039795, #196e6d);
+color: #ffffff;
+
+margin: 0;
+border-radius: 0;
+}
+
+.btmButton2 {
+background: linear-gradient(to bottom, #5c0eb3, #3f1968);
+color: #ffffff;
+
+margin: 0;
+border-radius: 0;
+}
+
+#top {
+height: calc("(Zebble.Device.Screen.Height - 116)");
+background: #dadada
+}
+
+#bottomMenu {
+width: calc("Zebble.Device.Screen.Width");
+
+}
+    </ContentPage.Style>
+    <ContentPage.Content>
+        <StackLayout>
+          
+            <!--<StackLayout Orientation="Vertical" Margin="10" Spacing="10" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">-->
+            
+         
+             
+                    <ListView x:Name="MyListView"
+            ItemsSource="{Binding Franchise_Sell_Class_Data.FranchiseSellDetails_Class_List}"
+          HasUnevenRows="True" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+                <ListView.Header>
+                        <StackLayout Orientation="Vertical" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" StyleId="top" BackgroundColor="#d0a822">
+
+                        <Label FontSize="Medium" TextColor="White" FontAttributes="Bold" Text="{Binding Franchise_Sell_Class_Data.Customer_Class_Data.Customer_Name,StringFormat='Customer Name : {0}'}" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand"></Label>
+                            <Label FontSize="Medium" TextColor="White" FontAttributes="Bold" Text="{Binding Franchise_Sell_Class_Data.Created_Date,StringFormat='Invoice Date : {0:dd-MM-yyyy}'}" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand"></Label>
+                            <Label FontSize="Medium" TextColor="White" FontAttributes="Bold" Text="{Binding Franchise_Sell_Class_Data.Invoice_No,StringFormat='Invoice No. : {0}'}" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand"></Label>
+
+                    </StackLayout>
+                </ListView.Header>
+
+                <ListView.ItemTemplate>
+      <DataTemplate>
+        <ViewCell>
+                        <StackLayout Margin="15" Style="{StaticResource BorderStyle}">
+                            <StackLayout   Style="{StaticResource InternalViewStyle}" >
+                                <StackLayout Style="{StaticResource BorderStyle}"  Orientation="Vertical" BackgroundColor="White" >
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="*"></RowDefinition>
+                                            <RowDefinition Height="*"></RowDefinition>
+                                            <RowDefinition Height="*"></RowDefinition>
+                                            <RowDefinition Height="*"></RowDefinition>
+                                            <!--<RowDefinition Height="*"></RowDefinition>-->
+
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="50"></ColumnDefinition>
+                                            <ColumnDefinition Width="50"></ColumnDefinition>
+                                            <ColumnDefinition Width="*"></ColumnDefinition>
+                                        </Grid.ColumnDefinitions>
+
+                                        <Image Source="{Binding ArticleMaster_Class_Data.Article_PrimaryImage}" Grid.Column="0"  Grid.RowSpan="4"></Image>
+                                        <Image Source="{Binding ArticleMaster_Class_Data.Article_SecondaryImage}"  Grid.Column="1"  Grid.RowSpan="4"></Image>
+                                        <Label FontSize="Small"  Text="{Binding ArticleMaster_Class_Data.Article_No,StringFormat='Article No : {0}'}"  Grid.Column="2" Grid.Row="0" ></Label>
+                                        <Label FontSize="Small" Text="{Binding ArticleMaster_Class_Data.CategoryMaster_Class_Data.Category_Name,StringFormat='Cat. - SubCat. : {0}'}" Grid.Column="2" Grid.Row="1"></Label>
+
+                                        
+
+                                        
+                                        <Label FontSize="Small"   Text="{Binding ArticleMaster_Class_Data.MRP ,StringFormat='MRP : {0}'}" Grid.Column="2" Grid.Row="2"></Label>
+                                        <Label FontSize="Small" TextColor="#ba6222"   Text="{Binding Quantity,StringFormat='Qty : {0}'}" Grid.Column="2" Grid.Row="3"></Label>
+                                        
+
+                                    </Grid>
+
+                                </StackLayout>
+                            </StackLayout>
+                        </StackLayout>
+
+
+                    </ViewCell>
+      </DataTemplate>
+    </ListView.ItemTemplate>
+            <ListView.Footer>
+                <StackLayout Orientation="Vertical" VerticalOptions="EndAndExpand" BackgroundColor="#e09a67">
+                    <StackLayout Orientation="Horizontal" Padding="0,0,10,0">
+
+                        <Label  FontSize="Medium" TextColor="Black" FontAttributes="Bold" Text="{Binding Franchise_Sell_Class_Data.Total_Amount,StringFormat='Total Amount : {0}'}" HorizontalOptions="EndAndExpand"></Label>
+                    </StackLayout>
+                </StackLayout>
+            </ListView.Footer>
+
+        </ListView>
+                <!--</StackLayout>-->
+
+
+
+            <Button x:Name="ViewPdf" Text="View Pdf" BackgroundColor="#ba6222" TextColor="White" StyleId="bottomMenu" Clicked="ViewPdf_Clicked"  ></Button>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

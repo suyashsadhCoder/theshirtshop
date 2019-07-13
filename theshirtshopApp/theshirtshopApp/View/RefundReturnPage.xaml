@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="theshirtshopApp.View.RefundReturnPage"
+             xmlns:local="clr-namespace:theshirtshopApp.Controls"
+             NavigationPage.HasNavigationBar="false" BackgroundColor="#f1ede4">
+    <ContentPage.Content>
+        <StackLayout Padding="5,10,5,10">
+            <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand"  BackgroundColor="White">
+                <local:ImageEntry   Placeholder="Enter Mobile Number/ Invoice Number" 
+                                  FontSize="Small"  Text="{Binding mobileOrInvoiceNumber}"  Image="search" 
+                                  VerticalOptions="Center" TextChanged="ImageEntry_TextChanged" HorizontalOptions="Start">
+                    <Entry.Effects>
+                        <local:BackgroundEntryEffect />
+                    </Entry.Effects>
+                </local:ImageEntry>
+                <Button Text="Filter" x:Name="btnFilter" HorizontalOptions="End" ></Button>
+            </StackLayout>
+
+            <ListView  x:Name="invoicelistview"  IsPullToRefreshEnabled="True"   ItemsSource="{Binding InvoiceDataList}" HasUnevenRows="True" >
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <ViewCell.View>
+                               
+                                    <StackLayout BackgroundColor="White" Orientation="Horizontal" Padding="10" HorizontalOptions="FillAndExpand">
+                                        <StackLayout Orientation="Vertical" HorizontalOptions="StartAndExpand">
+                                            <Label TextColor="Black" Text = "{Binding InvoiceNo}" FontSize="Small"/>
+                                            <Label TextColor="Gray" Text = "{Binding customerAndMobileNumber}"  FontSize="Small" />
+                                            <Label TextColor="Gray"  Text = "{Binding InvoiceDate}" FontSize="Small"/>
+                                        </StackLayout>
+                                        <StackLayout Padding="10,10" HorizontalOptions="EndAndExpand" Orientation="Vertical">
+                                        <Label TextColor="Black" Text = "{Binding  totalAmoutInRupees}" FontAttributes="Bold" HorizontalOptions="FillAndExpand" HorizontalTextAlignment="Center"/>
+                                        <Label WidthRequest="100" TextColor="White" HorizontalTextAlignment="Center" Text = "{Binding SellStatus}" BackgroundColor="#07549c" />
+                                        </StackLayout>
+                                        
+                                    </StackLayout>
+                              
+                            </ViewCell.View>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </StackLayout>
+        
+	</ContentPage.Content>
+</ContentPage>

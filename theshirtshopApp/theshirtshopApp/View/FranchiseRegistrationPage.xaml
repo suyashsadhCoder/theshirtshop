@@ -1,0 +1,238 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="theshirtshopApp.View.FranchiseRegistrationPage"
+               xmlns:local="clr-namespace:theshirtshopApp.Validation"
+             xmlns:converters="clr-namespace:theshirtshopApp.ValueConverter"
+           xmlns:forms="clr-namespace:Xamarin.Forms;assembly=Xamarin.Forms.CarouselView"
+             BackgroundImage="Screen.png"
+             Title="Franchise Registration"
+             NavigationPage.HasNavigationBar="False"
+             >
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:NativeInMemoryImageValueConverter x:Key="ByteArrayToImage" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <ContentPage.Content>
+            <ScrollView VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+                <StackLayout Padding="10" Margin="20" Spacing="30" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+                    
+                    <StackLayout Orientation="Vertical">
+                        <Label FontSize="Medium" Text="Franchise Name"  VerticalOptions="Start" />
+                    <local:MpEntry  Text="{Binding _Franchise_Name}"   FontSize="Medium" x:Name="FranchiseName" BackgroundColor="White"   Completed="FranchiseName_Completed" TextColor="Black"  Keyboard="Text"   ShowErrorMessage="True" />
+                        <Label  BindingContext="{x:Reference FranchiseName}"  IsVisible="{Binding HasError}" Text="{Binding ErrorMessage}" TextColor="Red" />
+                    </StackLayout>
+                    <StackLayout Orientation="Vertical">
+                    <Label FontSize="Medium" Text="GST/Adhar No."   />
+
+                    <local:MpEntry Text="{Binding _Franchise_GST_No}"   FontSize="Medium" x:Name="FranchiseGSTNo" BackgroundColor="White" TextColor="Black" Completed="FranchiseGSTNo_Completed" Keyboard="Text"   ShowErrorMessage="True"  />
+
+                        <Label  BindingContext="{x:Reference FranchiseGSTNo}"  IsVisible="{Binding HasError}" Text="{Binding ErrorMessage}" TextColor="Red" />
+                    </StackLayout>
+                    <StackLayout Orientation="Vertical">
+                        <Label FontSize="Medium" Text="Owner Name"   />
+
+                    <local:MpEntry  Text="{Binding _Franchise_Owner_Name}"   FontSize="Medium" x:Name="FranchiseOwnerName" BackgroundColor="White" TextColor="Black" Completed="FranchiseOwnerName_Completed" Keyboard="Text"   ShowErrorMessage="True" />
+
+                        <Label  BindingContext="{x:Reference FranchiseOwnerName}"  IsVisible="{Binding HasError}" Text="{Binding ErrorMessage}" TextColor="Red" />
+                    </StackLayout>
+                    <StackLayout Orientation="Vertical">
+                        <Label FontSize="Medium" Text="Email Id"   />
+
+                    <local:MpEntry  Text="{Binding _Franchise_Email_Id}"   FontSize="Medium" x:Name="FranchiseEmailId" BackgroundColor="White" TextColor="Black" Completed="FranchiseEmailId_Completed" Keyboard="Email"   ShowErrorMessage="True" />
+
+                        <Label  BindingContext="{x:Reference FranchiseEmailId}"  IsVisible="{Binding HasError}" Text="{Binding ErrorMessage}" TextColor="Red" />
+                    </StackLayout>
+                    <StackLayout Orientation="Vertical">
+                        <Label FontSize="Medium" Text="Mobile No."   />
+
+                    <local:MpEntry Text="{Binding _Franchise_Mobile_No}"   FontSize="Medium" x:Name="FranchiseMobileNo" BackgroundColor="White" TextColor="Black" Keyboard="Numeric" Completed="FranchiseMobileNo_Completed"  ShowErrorMessage="True"    />
+
+                        <Label  BindingContext="{x:Reference  FranchiseMobileNo}"  IsVisible="{Binding HasError}" Text="{Binding ErrorMessage}" TextColor="Red" />
+
+                    </StackLayout>
+               
+
+            <StackLayout Orientation="Vertical" >
+                        <Label FontSize="Medium" Text="State" />
+                    <local:MpPicker x:Name="StateMasterList" ItemsSource="{Binding _State_Master_List}" DisplayMemberPath="State_Name"  SelectedIndex="{Binding StateIndex}" SelectedValuePath="State_ID" SelectedValue="{Binding _Franchise_State_Id, Mode=TwoWay}"/>
+                    </StackLayout>
+                    <StackLayout Orientation="Vertical" >
+                        <Label FontSize="Medium" Text="City" />
+                        <local:MpPicker x:Name="CityList" ItemsSource="{Binding _City_Master_List}" DisplayMemberPath="City_Name" SelectedValuePath="City_ID" SelectedValue="{Binding _Franchise_City_Id, Mode=TwoWay}" SelectedIndexChanged="CityList_SelectedIndexChanged" />
+                    </StackLayout>
+                <StackLayout Orientation="Vertical">
+                    <Label FontSize="Medium" Text="Pincode"  VerticalOptions="Start" />
+                    <local:MpEntry  Text="{Binding _Franchise_Pincode}"   FontSize="Medium" x:Name="Franchise_Pincode" BackgroundColor="White"   Completed="Franchise_Pincode_Completed" TextColor="Black"  Keyboard="Text"   ShowErrorMessage="True" />
+                    <Label  BindingContext="{x:Reference Franchise_Pincode}"  IsVisible="{Binding HasError}" Text="{Binding ErrorMessage}" TextColor="Red" />
+                </StackLayout>
+                <StackLayout Orientation="Vertical">
+                        <Label FontSize="Medium" Text="Address"   />
+                    <local:MpEditor Text="{Binding _Franchise_Address}"  ShowErrorMessage="True" FontSize="Medium" x:Name="FranchiseAddress" BackgroundColor="White" TextColor="Black" Completed="FranchiseAddress_Completed"  HeightRequest="150" Keyboard="Text"   />
+                        <Label  BindingContext="{x:Reference FranchiseAddress}"  IsVisible="{Binding HasError}" Text="{Binding ErrorMessage}" TextColor="Red" />
+                    </StackLayout>
+                    <StackLayout Orientation="Vertical">
+                        <Label FontSize="Medium" Text="Permanent Address"   />
+                        <local:MpEditor Text="{Binding _Franchise_Parmanent_Address}"  ShowErrorMessage="True" FontSize="Medium" Completed="FranchiseParmanentAddress_Completed" x:Name="FranchiseParmanentAddress" BackgroundColor="White" TextColor="Black" HeightRequest="150" Keyboard="Text"   />
+                        <Label  BindingContext="{x:Reference FranchiseParmanentAddress}"  IsVisible="{Binding HasError}" Text="{Binding ErrorMessage}" TextColor="Red" />
+                    </StackLayout>
+                <StackLayout Orientation="Vertical">
+                    <Label FontSize="Medium" Text="Pan No."   />
+                    <local:MpEntry Text="{Binding _Franchise_Pan_No}"  ShowErrorMessage="True" FontSize="Medium" x:Name="FranchisePanNo" BackgroundColor="White" TextColor="Black" Keyboard="Text" Completed="FranchisePanNo_Completed"    />
+                    <Label  BindingContext="{x:Reference FranchisePanNo}"  IsVisible="{Binding HasError}" Text="{Binding ErrorMessage}" TextColor="Red" />
+                </StackLayout>
+
+                <StackLayout Orientation="Vertical">
+                    <Label FontSize="Medium" Text="Aadhar No."   />
+                    <local:MpEntry Text="{Binding _Franchise_Adhar_No}"  ShowErrorMessage="True" FontSize="Medium" x:Name="FranchiseAdharNo" Keyboard="Numeric" BackgroundColor="White"   TextColor="Black" Completed="FranchiseAdharNo_Completed"  />
+                    <Label  BindingContext="{x:Reference FranchiseAdharNo}"  IsVisible="{Binding HasError}" Text="{Binding ErrorMessage}" TextColor="Red" />
+                </StackLayout>
+                <StackLayout Orientation="Vertical">
+                    <Label FontSize="Medium" Text="Bank Name"   />
+                    <local:MpEntry Text="{Binding _Franchise_Bank_Name}"  ShowErrorMessage="True" FontSize="Medium" x:Name="FranchiseBankName" BackgroundColor="White" TextColor="Black"    Keyboard="Text" Completed="FranchiseBankName_Completed"  />
+                    <Label  BindingContext="{x:Reference FranchiseBankName}"  IsVisible="{Binding HasError}" Text="{Binding ErrorMessage}" TextColor="Red" />
+                </StackLayout>
+                <StackLayout Orientation="Vertical">
+                    <Label FontSize="Medium" Text="Account No."   />
+                    <local:MpEntry Text="{Binding _Franchise_Account_No}"  ShowErrorMessage="True" FontSize="Medium" x:Name="FranchiseAccountNo" BackgroundColor="White" TextColor="Black"  Completed="FranchiseAccountNo_Completed" Keyboard="Numeric"   />
+                    <Label  BindingContext="{x:Reference FranchiseAccountNo}"  IsVisible="{Binding HasError}" Text="{Binding ErrorMessage}" TextColor="Red" />
+                </StackLayout>
+                <StackLayout Orientation="Vertical">
+                    <Label FontSize="Medium" Text="IFSC Code"   />
+                    <local:MpEntry Text="{Binding _Franchise_IFC_Code}"  ShowErrorMessage="True" FontSize="Medium" x:Name="FranchiseIFCCode" BackgroundColor="White" TextColor="Black"  Keyboard="Text"   />
+                    <Label  BindingContext="{x:Reference FranchiseIFCCode}"  IsVisible="{Binding HasError}" Text="{Binding ErrorMessage}" TextColor="Red" />
+                </StackLayout>
+
+                <StackLayout Orientation="Vertical" >
+                <Label FontSize="Medium" Text="Select Address Proof"  VerticalOptions="Start" />
+                <StackLayout Orientation="Horizontal">
+                    <Button  Image="camera.png"  Command="{Binding GetAddressPicCommand}" HorizontalOptions="StartAndExpand" BackgroundColor="Transparent"  VerticalOptions="CenterAndExpand" ></Button>
+                        <Button BackgroundColor="Transparent" Image="gallery.png" Command="{Binding SelectFranchiseAddressPicCommand}"    HorizontalOptions="EndAndExpand" VerticalOptions="StartAndExpand"></Button>
+                </StackLayout>
+
+
+                <Image Source="{Binding _Franchise_Address_Image , Converter={StaticResource ByteArrayToImage}}"     />
+
+               
+
+            </StackLayout>
+            <StackLayout Orientation="Vertical" >
+                <Label FontSize="Medium" Text="Select Pan file"  VerticalOptions="Start" />
+                <StackLayout Orientation="Horizontal">
+                        <Button  Image="camera.png" BackgroundColor="Transparent"  Command="{Binding GetPanPicCommand}" HorizontalOptions="StartAndExpand"  VerticalOptions="CenterAndExpand" ></Button>
+                        <Button  Image="gallery.png" BackgroundColor="Transparent" Command="{Binding SelectFranchisePanPicCommand}"    HorizontalOptions="EndAndExpand" VerticalOptions="StartAndExpand"></Button>
+                </StackLayout>
+
+
+                <Image Source="{Binding _Franchise_Pan_Image , Converter={StaticResource ByteArrayToImage}}"    />
+
+
+
+
+            </StackLayout>
+            <StackLayout Orientation="Vertical" >
+                <Label FontSize="Medium" Text="Select Aadhar file"  VerticalOptions="Start" />
+                <StackLayout Orientation="Horizontal">
+                        <Button BackgroundColor="Transparent"  Image="camera.png"   Command="{Binding GetAdharPicCommand}" HorizontalOptions="StartAndExpand"  VerticalOptions="CenterAndExpand" ></Button>
+                        <Button BackgroundColor="Transparent"  Image="gallery.png" Command="{Binding SelectFranchiseAdharPicCommand}"    HorizontalOptions="EndAndExpand"  VerticalOptions="StartAndExpand"></Button>
+                </StackLayout>
+
+
+                <Image Source="{Binding _Franchise_Adhar_Image , Converter={StaticResource ByteArrayToImage}}"    />
+
+
+
+
+            </StackLayout>
+            <StackLayout Orientation="Vertical" >
+                <Label FontSize="Medium" Text="Select Single Image"  VerticalOptions="Start" />
+                <StackLayout Orientation="Horizontal">
+                        <Button   BackgroundColor="Transparent" Image="camera.png"  Command="{Binding GetPicCommand}" HorizontalOptions="StartAndExpand"  VerticalOptions="CenterAndExpand" ></Button>
+                        <Button BackgroundColor="Transparent" Image="gallery.png" Command="{Binding SelectFranchiseSinglePicCommand}"    HorizontalOptions="EndAndExpand" VerticalOptions="StartAndExpand"></Button>
+                </StackLayout>
+
+
+                <Image Source="{Binding _Franchise_Single_Image , Converter={StaticResource ByteArrayToImage}}"    />
+
+
+
+
+            </StackLayout>
+
+                <StackLayout Orientation="Vertical">
+                    <StackLayout Orientation="Horizontal" VerticalOptions="StartAndExpand">
+                        <Label FontSize="Medium" Text="Secondary Contact No."  HorizontalOptions="Start" />
+                        <Button BackgroundColor="Transparent" Image="add.png"  Command="{Binding AddMoreContectCommand}"    HorizontalOptions="EndAndExpand" ></Button>
+                    </StackLayout>
+                    <StackLayout Orientation="Vertical" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" HeightRequest="250">
+                        <ListView x:Name="lstNotification"  ItemsSource="{Binding _Secondary_Mobile_No,Mode=TwoWay}" HasUnevenRows="True" VerticalOptions="EndAndExpand" HorizontalOptions="FillAndExpand"  RowHeight="10" >
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <ViewCell>
+                                        <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+                                            <!--<StackLayout Orientation="Vertical" HorizontalOptions="FillAndExpand"  VerticalOptions="StartAndExpand">-->
+                                            <local:MpEntry x:Name="Alternate" Text="{Binding Contect_No,Mode=TwoWay}"    FontSize="Medium"  BackgroundColor="White"  TextColor="Black" Keyboard="Numeric"  HorizontalOptions="FillAndExpand"  VerticalOptions="StartAndExpand"  />
+                                                <!--<Label IsVisible="{Binding ErrorMessageStatus}"  Text="minimumLength 10 and maximumLength 12 required" VerticalOptions="EndAndExpand"
+                    HorizontalOptions="EndAndExpand" TextColor="Red" />
+                                            </StackLayout>-->
+                                            <Button  BackgroundColor="Transparent" Image="delete.png"   Clicked="Button_Clicked"     HorizontalOptions="EndAndExpand" VerticalOptions="EndAndExpand" ></Button>
+                                        </StackLayout>
+
+                                    </ViewCell>
+
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+
+                        </ListView>
+                    </StackLayout>
+                </StackLayout>
+             
+                <StackLayout Orientation="Vertical" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+                    <Label FontSize="Medium"  VerticalOptions="Start" Text="Select Multiple Image"   />
+                    <StackLayout Orientation="Horizontal">
+                        <Button BackgroundColor="Transparent" Image="camera.png"   Command="{Binding GetMultiplePicCommand}" HorizontalOptions="StartAndExpand" VerticalOptions="CenterAndExpand"      ></Button>
+                        <Button BackgroundColor="Transparent" Image="gallery.png"  Command="{Binding SelectFranchiseMultiplePicCommand}" HorizontalOptions="EndAndExpand"  VerticalOptions="CenterAndExpand"   ></Button>
+
+                    </StackLayout>
+
+
+
+                    <forms:CarouselView x:Name="FranchiseMultiplePic" VerticalOptions="FillAndExpand"  HorizontalOptions="FillAndExpand" HeightRequest="250"    ItemsSource="{Binding _Franchise_Multiple_Image}"     >
+
+                        <forms:CarouselView.ItemTemplate>
+                            <DataTemplate>
+
+
+                                <StackLayout Orientation="Vertical">
+                                    <Button BackgroundColor="Transparent" Image="delete.png"   Clicked="RemoveSecondaryImage" VerticalOptions="StartAndExpand" HorizontalOptions="CenterAndExpand"    ></Button>
+                                    <Image   Source="{Binding Image, Converter={StaticResource ByteArrayToImage}}" VerticalOptions="FillAndExpand" HorizontalOptions="CenterAndExpand" WidthRequest="250" HeightRequest="250"
+                                             />
+
+
+                                </StackLayout>
+
+
+
+                            </DataTemplate>
+                        </forms:CarouselView.ItemTemplate>
+                    </forms:CarouselView>
+
+                </StackLayout>
+
+               
+                    <StackLayout Orientation="Vertical">
+                        <Button Text="Save" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"  Command="{Binding SaveCommand}"   BackgroundColor="#ba6222"  TextColor="White" ></Button>
+
+
+
+                    </StackLayout>
+
+
+
+
+                </StackLayout>
+            </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

@@ -1,0 +1,114 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="theshirtshopApp.View.GoodReturnDetailPage"
+               xmlns:local="clr-namespace:theshirtshopApp.Validation"
+             BackgroundImage="Screen.png"
+             Title="Detail"
+             NavigationPage.HasNavigationBar="False"
+             >
+    <ContentPage.Resources>
+        <ResourceDictionary x:Name="AppDictionary">
+            <Color x:Key="BackgroundColor">#FFFFFF</Color>
+            <Color x:Key="BorderColor">#575757</Color>
+            <Style x:Key="InternalViewStyle" TargetType="StackLayout">
+                <Setter Property = "BackgroundColor"
+            Value="{StaticResource BackgroundColor}"/>
+                <Setter Property="VerticalOptions" Value="Fill"/>
+                <Setter Property="Padding" Value="10,10,10,10"></Setter>
+            </Style>
+            <Style x:Key="BorderStyle" TargetType="StackLayout">
+                <Setter Property="BackgroundColor" Value="{StaticResource BorderColor}"/>
+                <Setter Property="Padding" Value="10,0,0,0"></Setter>
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <ScrollView>
+
+            <StackLayout  Padding="10" Margin="10" Spacing="30" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+
+
+
+
+                <ListView x:Name="MasterList" ItemsSource="{Binding ArticleMaster_Class_List}"  HasUnevenRows="True">
+                    <ListView.Header>
+                        <StackLayout Orientation="Vertical">
+                            <Label FontSize="Medium" Text="Mode Of Return" VerticalOptions="StartAndExpand"   />
+
+                            <local:MpEntry  Text="{Binding _Mod_Of_Return}"   FontSize="Medium" x:Name="mdr" BackgroundColor="White" TextColor="Black" Completed="mdr_Completed" Keyboard="Text"   ShowErrorMessage="True" />
+
+                            <Label  BindingContext="{x:Reference mdr}"  IsVisible="{Binding HasError}" Text="{Binding ErrorMessage}" TextColor="Red" />
+                            <Label FontSize="Medium" Text="Remark"   />
+                            <local:MpEditor Text="{Binding _Remark}"  ShowErrorMessage="True" FontSize="Medium" x:Name="remark" BackgroundColor="White" TextColor="Black" HeightRequest="150" Keyboard="Text"   />
+                            <Label  BindingContext="{x:Reference remark}"  IsVisible="{Binding HasError}" Text="{Binding ErrorMessage}" TextColor="Red" />
+
+
+                            <!--<Label FontSize="15"   FontAttributes="Bold" TextColor="#ba6222" Text="{Binding FranchiseGoodReturn_Class_Data.Total_Amount,StringFormat='Total Amount : {0}'}" ></Label>-->
+
+                            <Label FontSize="15" FontAttributes="Bold" TextColor="#ba6222" Text="{Binding FranchiseGoodReturn_Class_Data.Total_Item,StringFormat='Total Item : {0}'}" ></Label>
+
+                            <Button Text="Save" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"  Command="{Binding SaveCommand}"   BackgroundColor="#ba6222"  TextColor="White" ></Button>
+
+                        </StackLayout>
+
+                    </ListView.Header>
+                    <ListView.ItemTemplate>
+
+                        <DataTemplate>
+                            <ViewCell>
+                                <StackLayout Margin="0,0,0,15" Style="{StaticResource BorderStyle}">
+                                    <StackLayout   Style="{StaticResource InternalViewStyle}" >
+                                        <StackLayout Style="{StaticResource BorderStyle}"  Orientation="Vertical" BackgroundColor="White" >
+
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="50"></ColumnDefinition>
+                                                    <ColumnDefinition Width="50"></ColumnDefinition>
+                                                    <ColumnDefinition Width="*"></ColumnDefinition>
+
+                                                </Grid.ColumnDefinitions>
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="*"></RowDefinition>
+                                                    <RowDefinition Height="*"></RowDefinition>
+                                                    <RowDefinition Height="*"></RowDefinition>
+                                                    <RowDefinition Height="*"></RowDefinition>
+                                                    <RowDefinition Height="*"></RowDefinition>
+                                                </Grid.RowDefinitions>
+
+
+
+
+                                                <Image Grid.Column="0" Grid.RowSpan="5"   Source="{Binding Article_PrimaryImage}"  ></Image>
+                                                <Image Grid.Column="1" Grid.RowSpan="5"   Source="{Binding Article_SecondaryImage}"  ></Image>
+
+
+
+
+                                                <Label FontSize="Small" Grid.Column="2" Grid.Row="0" TextColor="#ba6222" Text="{Binding Article_No,StringFormat='Article No. : {0}'}"  ></Label>
+
+
+                                                <Label FontSize="Small" Grid.Column="2" Grid.Row="1" TextColor="#ba6222" Text="{Binding CategoryMaster_Class_Data.Category_Name,StringFormat='Category : {0}'}" ></Label>
+
+
+                                                <Label FontSize="Small" Grid.Column="2" Grid.Row="2" TextColor="#ba6222" Text="{Binding Article_Id,StringFormat='Qty : {0}'}" ></Label>
+
+                                                <Label FontSize="Small" Grid.Column="2" Grid.Row="3" TextColor="#ba6222" Text="{Binding Selling_Price ,StringFormat='Selling Price : {0}'}" ></Label>
+
+                                                <Label FontSize="Small" Grid.Column="2" Grid.Row="4"  TextColor="#ba6222" Text="{Binding MRP,StringFormat='Amount : {0}'}" ></Label>
+                                            </Grid>
+                                        </StackLayout>
+                                    </StackLayout>
+                                </StackLayout>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+
+
+
+
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>
